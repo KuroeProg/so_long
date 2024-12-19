@@ -1,23 +1,21 @@
-#include "minilibx-linux/mlx.h"
-#include <stdlib.h>
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   window.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/19 22:48:32 by cfiachet          #+#    #+#             */
+/*   Updated: 2024/12/19 22:51:19 by cfiachet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#define WIDTH 400
-#define HEIGHT 400
+#include "so_long.h"
 
-int main(void)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-    void    *mlx_connection;
-    void    *mlx_window;
+	char	*dst;
 
-    mlx_connection = mlx_init();
-    if (mlx_connection == NULL)
-        return (1)
-    mlx_window = mlx_new_window(mlx_connection, WIDTH, HEIGHT, "So_long");
-    if (mlx_window == NULL)
-        return (mlx_destroy_display(mlx_connection), free(mlx_connection), 1);
-    mlx_loop(mlx_connection);
-    mlx_destroy_window(mlx_connection, mlx_window);
-    mlx_destroy_display(mlx_connection);
-    free(mlx_connection);
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
