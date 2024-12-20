@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/20 09:41:56 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/20 09:44:14 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ typedef struct s_data {
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int     main(void);
-int    handle_keypress(int keycode, void *param);
+int     handle_keypress(int keycode, void *param);
 
 #endif

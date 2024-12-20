@@ -1,12 +1,18 @@
 #include "so_long.h"
+#include <stdio.h>
 
 int    handle_keypress(int keycode, void *param)
 {
     (void)param;
 
-    if (keycode == 65307)
+    if (keycode == 0xff1b)
     {
+        printf("esc pressed\n");
         exit(0);
+    }
+    if (keycode == 0x0077)
+    {
+        printf("w printed\n");
     }
 
     return (0);
