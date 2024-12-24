@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/20 10:20:54 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:47:19 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ int	main(void)
 	img->img = mlx_new_image(mlx_connection, WIDTH, HEIGHT);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
-	my_mlx_pixel_put(img, 100, 100, 0x00FF0000);
+	//my_mlx_pixel_put(img, 100, 100, 0x00FF0000);
 	mlx_put_image_to_window(mlx_connection, mlx_window, img->img, 0, 0);
 	mlx_hook(mlx_window, 2, 1L << 0, handle_keypress, NULL);
 	mlx_hook(mlx_window, 17, 0, close_program, NULL);
 
 	mlx_loop(mlx_connection);
+	
 
 	// Free
 	mlx_destroy_image(mlx_connection, img->img);
