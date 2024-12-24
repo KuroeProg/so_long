@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/24 18:22:55 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/24 18:25:20 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 # include "minilibx-linux/mlx.h"
 # include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <X11/keysym.h>
 # include "utils/gnl_42/get_next_line.h"
 
 # define WIDTH 1000
