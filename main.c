@@ -6,13 +6,12 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/24 18:09:14 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/25 22:55:05 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 int	close_program(void *mlx_connection)
 {
