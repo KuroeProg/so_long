@@ -17,3 +17,11 @@ int    handle_keypress(int keycode, void *param)
 
     return (0);
 }
+
+int    handle_destroy(void *param)
+{
+    (void)param;
+    printf("destroyed\n");
+    exit(0);
+    return (0);
+}

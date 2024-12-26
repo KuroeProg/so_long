@@ -1,5 +1,5 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*                                                                          */
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -30,21 +30,22 @@ typedef struct s_data {
 
 typedef struct s_img
 {
-    void *img_path;
-    void *img_wall;
-    void *img_player;
-    void *img_item;
-    void *img_exit;
-}            t_img;
+    void    *img_path;
+    void	*img_wall;
+	void	*img_player;
+	void	*img_item;
+	void	*img_exit;
+}				t_img;S
 
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int     main(int argc, char **argv);
-int     close_program(void *mlx_connection);
+int  main(int argc, char **argv);
+int  close_program(void *mlx_connection);
 void	ft_parsing(char *file_path, void *mlx_connection, void *mlx_window);
 void	display_line(char *line, void *mlx_connection, void *mlx_window, t_img *img, int j);
-int    handle_keypress(int keycode, void *param);
-int     ft_sprites_manage(void *mlx);
+int handle_keypress(int keycode, void *param);
+int  ft_sprites_manage(void *mlx);
+int handle_destroy(void *param);
 
 
 
