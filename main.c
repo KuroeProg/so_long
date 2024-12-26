@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/26 22:07:48 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/27 00:15:58 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	close_program(void *mlx_connection)
 void	run_game_loop(void *mlx_connection, void *mlx_window)
 {
 	mlx_hook(mlx_window, 2, 1L << 0, handle_keypress, NULL);
-	mlx_hook(mlx_window, 17, 0, close_program, NULL);
+	mlx_hook(mlx_window, 17, 0, close_program, mlx_connection);
 	mlx_loop(mlx_connection);
 }
 
