@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/25 22:55:05 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/26 16:27:54 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char **argv)
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
 	mlx_put_image_to_window(mlx_connection, mlx_window, img->img, 0, 0);
-	ft_parsing(argv[1], mlx_connection, mlx_window, 0);
+	ft_parsing(argv[1], mlx_connection, mlx_window);
 	mlx_hook(mlx_window, 2, 1L << 0, handle_keypress, NULL);
 	mlx_hook(mlx_window, 17, 0, close_program, NULL);
 

@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/25 22:55:05 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:40:59 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,21 @@ typedef struct s_data {
     int		endian;
 }				t_data;
 
+typedef struct s_img
+{
+    void *img_path;
+    void *img_wall;
+    void *img_player;
+    void *img_item;
+    void *img_exit;
+}            t_img;
+
+
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int     main(int argc, char **argv);
 int     close_program(void *mlx_connection);
-void	ft_parsing(char *file_path, void *mlx_connection, void *mlx_window, int i);
-void	display_line(char *line, void *mlx_connection, void *mlx_window, void *img_path, void *img_wall, int j);
+void	ft_parsing(char *file_path, void *mlx_connection, void *mlx_window);
+void	display_line(char *line, void *mlx_connection, void *mlx_window, t_img *img, int j);
 int    handle_keypress(int keycode, void *param);
 int     ft_sprites_manage(void *mlx);
 
