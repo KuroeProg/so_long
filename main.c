@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/27 00:15:58 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:31:25 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,11 @@ int	main(int argc, char **argv)
 	void	*mlx_connection;
 	void	*mlx_window;
 	t_data	*img;
+	char	**map;
+	t_player	player;
 
 	if (argc != 2)
-	{
-		printf("Error\n");
-		return (0);
-	}
+		return (ft_printf("Error\nUsage: ./so_long [map.ber]\n"));
 	mlx_connection = mlx_init();
 	mlx_window = mlx_new_window(mlx_connection, WIDTH, HEIGHT, "So_long");
 	img = (t_data *)malloc(sizeof(t_data));
@@ -47,8 +46,11 @@ int	main(int argc, char **argv)
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
 	mlx_put_image_to_window(mlx_connection, mlx_window, img->img, 0, 0);
-	ft_parsing(argv[1], mlx_connection, mlx_window);
+	map = ft_parsing(argv[1], mlx_connection, mlx_window);
+	initialize_player(&player, map);
 	run_game_loop(mlx_connection, mlx_window);
+	
+	
 	// Free
 	mlx_destroy_image(mlx_connection, img->img);
 	free(img);
