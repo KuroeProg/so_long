@@ -6,12 +6,25 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 21:30:43 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/28 14:30:14 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:43:15 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+static void initialize_coordinates(int *new_x, int *new_y, t_game *game, int direction)
+{
+	*new_x = game->player_x;
+	*new_y = game->player_y;
+	if (direction == 0)
+		(*new_y)--;
+	else if (direction == 1)
+		(*new_y)++;
+	else if (direction == 2)
+		(*new_x)--;
+	else if (direction == 3)
+		(*new_x)++;
+}
 /* **************************************************************************
 ** This function will move the player on the map.
 ** We will check if the player can move on the next tile. (if it's a wall or not)
@@ -19,27 +32,17 @@
 ** If the player move on an item, we will call the collect_item function.
 ** If the player move on the exit, we will call the check_exit function.
 ** **************************************************************************/
-void	move_player(t_player *player, int direction)
+void	move_player(t_game *game, int direction)
 {
-	int new_x = player->x;
-	int new_y = player->y;
+	int new_x;
+	int new_y;
 
-	if (direction == 0) //gaut
-		new_y--;
-	else if (direction == 1) //bas
-		new_y++;
-	else if (direction == 2) // gauche
-		new_x--;
-	else if (direction == 3) //droite
-		new_x++;
-	if (player->map[new_y][new_x] != '1')
+	initialize_coordinates(&new_x, &new_y, game, direction);
+	if (game->map[new_y][new_x] != '1')
 	{
-		player->x = new_x;
-		player->y = new_y;
-		if (player->map[new_y][new_x] == 'C')
-			collect_item(player);
-		else if (player->map[new_y][new_x] == 'E')
-			check_exit(player);
+		game->player_x = new_x;
+		game->player_y = new_y;
+		handle_player_action(game, new_x, new_y);
 	}
 }
 
@@ -47,9 +50,22 @@ void	move_player(t_player *player, int direction)
 ** Here we will check if the player has collected all the items when he is on the Exit tile.
 ** if he does, we will print a message and exit the program.
 ** **************************************************************************/
-int		check_exit(t_player player)
+void	handle_player_action(t_game *game, int x, int y)
 {
-	if (player->item_collected != TOTAL_ITEM)
+	if (game->map[y][x] == 'C')
+	{
+		collect_item(game);
+		game->map[y][x] = '0';
+	}
+	else if (game->map[y][x] == 'E')
+	{
+		check_exit(game);
+	}
+}
+
+int		check_exit(t_game *game)
+{
+	if (game->collected_items != game->total_items)
 	{
 		ft_printf("You need to collect all item for exit !\n");
 		return (0);
@@ -65,8 +81,8 @@ int		check_exit(t_player player)
 ** After we collect the item, all we have is the floor.
 ** **************************************************************************/
 
-void	collect_item(t_player player, char **map)
+void	collect_item(t_game *game)
 {
-	player->item_collected++;
-	map[player->y][player->x] = '0';
+	game->collected_items++;
+	ft_printf("Item collected: %d\n", game->collected_items);
 }

@@ -3,10 +3,9 @@
 /* **************************************************************************
 ** This function will initialize the player structure at 0.
 ** **************************************************************************/
-void	initialize_player(t_player *player, char **map)
+void	initialize_player(t_game *game, int start_x, int start_y)
 {
-	player->x = 0;
-	player->y = 0;
-	player->item_collected = 0;
-	player->map = map;
+	game->player_x = start_x;
+	game->player_y = start_y;
+	game->collected_items = 0;
 }

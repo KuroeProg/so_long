@@ -8,19 +8,19 @@
 ** **************************************************************************/
 int    handle_keypress(int keycode, void *param)
 {
-    t_player *player = (t_player *)param;
-	initialize_player(player);
+    t_game *game = (t_game *)param;
+	initialize_player(game, game->player_start_x, game->player_start_y);
 
     if (keycode == 0xff1b)
         exit(0);
     else if (keycode == 0x0077)
-		move_player(player, player->map, 0);
+		move_player(game, 0);
 	else if (keycode == 0x0073)
-		move_player(player, player->map, 1);
+		move_player(game, 1);
 	else if (keycode == 0x0061)
-		move_player(player, player->map, 2);
+		move_player(game, 2);
 	else if (keycode == 0x0064)
-		move_player(player, player->map, 3);
+		move_player(game, 3);
 	return (0);
 }
 

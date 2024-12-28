@@ -16,6 +16,7 @@
 # include "minilibx-linux/mlx.h"
 # include <stdlib.h>
 # include "utils/gnl/get_next_line.h"
+# include "utils/ft_printf/ft_printf.h"
 
 # define WIDTH 1000
 # define HEIGHT 600
@@ -28,14 +29,6 @@ typedef struct s_data {
     int		endian;
 }				t_data;
 
-typedef struct s_player
-{
-	int		x;
-	int		y;
-	int		item_collected;
-	char	**map;
-}				t_player;
-
 typedef struct s_img
 {
     void    *img_path;
@@ -45,19 +38,37 @@ typedef struct s_img
 	void	*img_exit;
 }				t_img;
 
+typedef struct s_game
+{
+    void    *mlx_connection;
+    void    *mlx_window;
+    char    **map;
+    t_img   img;
+    int     map_width;
+    int     map_height;
+    int     player_x;
+    int     player_y;
+    int     collected_items;
+    int     total_items;
+    int     player_start_x;
+    int     player_start_y;
+}            t_game;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int     main(int argc, char **argv);
 int     close_program(void *mlx_connection);
-void	ft_parsing(char *file_path, void *mlx_connection, void *mlx_window);
+void	ft_parsing(char *file_path, t_game *game);
 void	display_line(char *line, void *mlx_connection, void *mlx_window, t_img *img, int j);
 int     handle_keypress(int keycode, void *param);
 int		ft_sprites_manage(void *mlx);
 int		handle_destroy(void *param);
-void	move_player(t_player *player, int direction);
-int		check_exit(t_player player);
-void	collect_item(t_player *player, char **map);
-void	initialize_player(t_player *player, char **map);
-
+void	move_player(t_game *game, int direction);
+int		check_exit(t_game *game);
+void	collect_item(t_game *game);
+void	handle_player_action(t_game *game, int x, int y);
+void	initialize_player(t_game *game, int start_x, int start_y);
+t_img	load_sprites(void *mlx_connection);
+void	ft_movesprite(char *line, void *mlx_connection, void *mlx_window, int j, t_img *img);
+void	free_sprites(t_img *img, void *mlx_connection);
 
 #endif

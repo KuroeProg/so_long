@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 15:07:50 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/28 14:30:08 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/28 17:32:39 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,21 @@ void	ft_movesprite(char *line, void *mlx_connection, void *mlx_window, int j, t_
 ** The variables widght and height will be used to store the size of the sprites.
 ** We return the img structure with the sprites loaded.
 ** *******************************************************************/
-t_img	*load_sprites(void *mlx_connection)
+t_img	load_sprites(void *mlx_connection)
 {
-	t_img *img;
+	t_img img;
 	int widght;
 	int height;
 
-	img = malloc(sizeof(t_img));
-	img->img_path = mlx_xpm_file_to_image(mlx_connection, 
+	img.img_path = mlx_xpm_file_to_image(mlx_connection, 
 		"sprites_solong/grass.xpm", &widght, &height);
-	img->img_wall = mlx_xpm_file_to_image(mlx_connection, 
+	img.img_wall = mlx_xpm_file_to_image(mlx_connection, 
 		"sprites_solong/water.xpm", &widght, &height);
-	img->img_player = mlx_xpm_file_to_image(mlx_connection,
+	img.img_player = mlx_xpm_file_to_image(mlx_connection,
 		"sprites_solong/player.xpm", &widght, &height);
-	img->img_item = mlx_xpm_file_to_image(mlx_connection,
+	img.img_item = mlx_xpm_file_to_image(mlx_connection,
 		"sprites_solong/item.xpm", &widght, &height);
-	img->img_exit = mlx_xpm_file_to_image(mlx_connection,
+	img.img_exit = mlx_xpm_file_to_image(mlx_connection,
 		"sprites_solong/exit.xpm", &widght, &height);
 	return (img);
 }
@@ -94,25 +93,36 @@ t_img	*load_sprites(void *mlx_connection)
 ** We use the move_sprite function to put the player, the item and the exit. on the map.
 ** We free the line and close the file. And also free the img, for not having leaks.
 ** *******************************************************************/
-void	ft_parsing(char *file_path, void *mlx_connection, void *mlx_window)
+void	ft_parsing(char *file_path, t_game *game)
 {
 	int fd;
 	char *line;
-	t_img *img;
 	int j;
+    int i;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return ;
-	img = load_sprites(mlx_connection);
+	game->img = load_sprites(game->mlx_connection);
 	j = 0;
+    i = 0;
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		display_line(line, mlx_connection, mlx_window, img, j);
-		ft_movesprite(line, mlx_connection, mlx_window, j, img);
+		display_line(line, game->mlx_connection, game->mlx_window, &game->img, j);
+		ft_movesprite(line, game->mlx_connection, game->mlx_window, j, &game->img);
+        while(line[i])
+        {
+            if (line[i] == 'P')
+            {
+                game->player_start_x = i;
+                game->player_start_y = j;
+                break ;
+            }
+            i++;
+        }
 		free(line);
 		j++;
 	}
 	close(fd);
-	free(img);
+    free_sprites(&game->img, game->mlx_connection);
 }
