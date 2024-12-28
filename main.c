@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/28 17:29:59 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/28 18:41:00 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (ft_printf("Error\nUsage: ./so_long [map.ber]\n"), 1);
 	game.mlx_connection = mlx_init();
+	game.mlx_window = mlx_new_window(game.mlx_connection, WIDTH, HEIGHT, "so_long");
 	ft_parsing(argv[1], &game);
+	if (game.map_height == 0 || game.map_width == 0)
+		return (ft_printf("Error\nInvalid map\n"), 1);
+	mlx_destroy_window(game.mlx_connection, game.mlx_window);
 	game.mlx_window = mlx_new_window(game.mlx_connection, game.map_width * 32, game.map_height * 32, "so_long");
 	game.img = load_sprites(game.mlx_connection);
 	mlx_key_hook(game.mlx_window, handle_keypress, &game);

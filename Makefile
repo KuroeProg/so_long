@@ -1,7 +1,7 @@
 NAME = so_long
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRCS_DIR = .
 UTILS_DIR = utils/gnl

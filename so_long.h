@@ -70,5 +70,7 @@ void	initialize_player(t_game *game, int start_x, int start_y);
 t_img	load_sprites(void *mlx_connection);
 void	ft_movesprite(char *line, void *mlx_connection, void *mlx_window, int j, t_img *img);
 void	free_sprites(t_img *img, void *mlx_connection);
+int     ftff_strlen(char *str);
+
 
 #endif
