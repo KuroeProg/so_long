@@ -49,7 +49,7 @@ typedef struct s_img
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int     main(int argc, char **argv);
 int     close_program(void *mlx_connection);
-char	**ft_parsing(char *file_path, void *mlx_connection, void *mlx_window);
+void	ft_parsing(char *file_path, void *mlx_connection, void *mlx_window);
 void	display_line(char *line, void *mlx_connection, void *mlx_window, t_img *img, int j);
 int     handle_keypress(int keycode, void *param);
 int		ft_sprites_manage(void *mlx);

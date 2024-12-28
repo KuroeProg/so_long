@@ -6,12 +6,19 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 21:30:43 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/27 22:14:54 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/28 14:30:14 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/* **************************************************************************
+** This function will move the player on the map.
+** We will check if the player can move on the next tile. (if it's a wall or not)
+** If the player can move, we will update the player position.
+** If the player move on an item, we will call the collect_item function.
+** If the player move on the exit, we will call the check_exit function.
+** **************************************************************************/
 void	move_player(t_player *player, int direction)
 {
 	int new_x = player->x;
@@ -35,6 +42,11 @@ void	move_player(t_player *player, int direction)
 			check_exit(player);
 	}
 }
+
+/* **************************************************************************
+** Here we will check if the player has collected all the items when he is on the Exit tile.
+** if he does, we will print a message and exit the program.
+** **************************************************************************/
 int		check_exit(t_player player)
 {
 	if (player->item_collected != TOTAL_ITEM)
@@ -45,6 +57,13 @@ int		check_exit(t_player player)
 	ft_printf("You win !\n");
 	exit(0);
 }
+
+/* **************************************************************************
+** This function will collect the item on the map.
+** When the player 'walk'/move on the item, we will increment the item_collected.
+** and we will change the map to '0' to remove the item from the map.
+** After we collect the item, all we have is the floor.
+** **************************************************************************/
 
 void	collect_item(t_player player, char **map)
 {

@@ -1,5 +1,11 @@
 #include "so_long.h"
 
+/* **************************************************************************
+** This function will take the keycode and the player structure as parameter.
+** We will initialize the player structure.
+** If the keycode is ESC we will exit the program.
+** the function is actually not linked with move.c, but it will be used in the main.c
+** **************************************************************************/
 int    handle_keypress(int keycode, void *param)
 {
     t_player *player = (t_player *)param;
@@ -18,6 +24,10 @@ int    handle_keypress(int keycode, void *param)
 	return (0);
 }
 
+/* **************************************************************************
+** This function will destroy the program.
+** It will print a message and exit the program.
+** **************************************************************************/
 int    handle_destroy(void *param)
 {
     (void)param;
