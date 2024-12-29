@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 21:30:43 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/28 18:45:13 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/29 14:02:49 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,14 @@ void	move_player(t_game *game, int direction)
 	int new_y;
 
 	initialize_coordinates(&new_x, &new_y, game, direction);
-	if (game->map[new_y][new_x] != '1')
+	if (new_x >= 0 && new_x < game->map_width && new_y >= 0 && new_y < game->map_height)
 	{
-		game->player_x = new_x;
-		game->player_y = new_y;
-		handle_player_action(game, new_x, new_y);
+		if (game->map[new_y][new_x] != '1')
+		{
+			game->player_x = new_x;
+			game->player_y = new_y;
+			handle_player_action(game, new_x, new_y);
+		}
 	}
 }
 

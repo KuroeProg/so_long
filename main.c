@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/28 18:41:00 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/29 15:10:15 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,22 @@ int		render_frame(t_game *game)
 	int j;
 
 	j = 0;
+	if (!game->map)
+		return (0);
 	while (game->map[j])
 	{
 		display_line(game->map[j], game->mlx_connection, game->mlx_window, &game->img, j);
 		ft_movesprite(game->map[j], game->mlx_connection, game->mlx_window, j, &game->img);
 		j++;
 	}
+	return (0);
+}
+
+int	close_program(void *param)
+{
+	t_game *game = (t_game *)param;
+	mlx_destroy_window(game->mlx_connection, game->mlx_window);
+	exit(0);
 	return (0);
 }
 
@@ -52,6 +62,7 @@ int	main(int argc, char **argv)
 	game.img = load_sprites(game.mlx_connection);
 	mlx_key_hook(game.mlx_window, handle_keypress, &game);
 	mlx_loop_hook(game.mlx_connection, render_frame, &game);
+	mlx_hook(game.mlx_window, 17, 0, close_program, &game);
 	mlx_loop(game.mlx_connection);
 	
 	

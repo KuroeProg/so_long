@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 15:07:50 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/28 18:43:04 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/29 14:03:07 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,36 +98,31 @@ void	ft_parsing(char *file_path, t_game *game)
 	int fd;
 	char *line;
 	int j;
-	int i;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return ;
 	game->img = load_sprites(game->mlx_connection);
-	j = 0;
-	i = 0;
     game->map_width = 0;
     game->map_height = 0;
 	while ((line = get_next_line(fd)) != NULL)
 	{
+		game->map_height++;
+		free(line);
+	}
+	close(fd);
+	game->map = malloc(sizeof(char *) * (game->map_height + 1));
+	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
+		return ;
+	j = 0;
+	while ((line = get_next_line(fd)) != NULL)
+	{
 		if (game->map_width == 0)
 			game->map_width = ftff_strlen(line) - 1;
-		display_line(line, game->mlx_connection, game->mlx_window, &game->img, j);
-		ft_movesprite(line, game->mlx_connection, game->mlx_window, j, &game->img);
-        while(line[i])
-        {
-            if (line[i] == 'P')
-            {
-                game->player_start_x = i;
-                game->player_start_y = j;
-                break ;
-            }
-            i++;
-        }
-		free(line);
+		game->map[j] = line;
 		j++;
 	}
-	game->map_height = j;
+	game->map[j] = NULL;
 	close(fd);
-    free_sprites(&game->img, game->mlx_connection);
 }
