@@ -52,6 +52,7 @@ typedef struct s_game
     int     total_items;
     int     player_start_x;
     int     player_start_y;
+    int     move_count;
 }            t_game;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -71,6 +72,7 @@ t_img	load_sprites(void *mlx_connection);
 void	ft_movesprite(char *line, void *mlx_connection, void *mlx_window, int j, t_img *img);
 void	free_sprites(t_img *img, void *mlx_connection);
 int     ftff_strlen(char *str);
+int		render_frame(t_game *game);
 
 
 #endif

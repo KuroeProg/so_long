@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 21:30:43 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/29 14:02:49 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/29 17:31:51 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	move_player(t_game *game, int direction)
 			game->player_x = new_x;
 			game->player_y = new_y;
 			handle_player_action(game, new_x, new_y);
+			mlx_clear_window(game->mlx_connection, game->mlx_window);
+			render_frame(game);
 		}
 	}
 }
@@ -73,8 +75,11 @@ int		check_exit(t_game *game)
 		ft_printf("You need to collect all item for exit !\n");
 		return (0);
 	}
-	ft_printf("You win !\n");
-	exit(0);
+	else
+	{
+		ft_printf("You win !\n");
+		exit(0);
+	}
 }
 
 /* **************************************************************************

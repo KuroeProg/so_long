@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 15:07:50 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/29 14:03:07 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/29 17:41:17 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_movesprite(char *line, void *mlx_connection, void *mlx_window, int j, t_
 			mlx_put_image_to_window(mlx_connection, mlx_window, img->img_player, i * 32, j * 32);
 		else if (line[i] == 'C')
 			mlx_put_image_to_window(mlx_connection, mlx_window, img->img_item, i * 32, j * 32);
+
 		else if (line[i] == 'E')
 			mlx_put_image_to_window(mlx_connection, mlx_window, img->img_exit, i * 32, j * 32);
 		i++;
@@ -98,6 +99,7 @@ void	ft_parsing(char *file_path, t_game *game)
 	int fd;
 	char *line;
 	int j;
+	int i;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
@@ -105,6 +107,7 @@ void	ft_parsing(char *file_path, t_game *game)
 	game->img = load_sprites(game->mlx_connection);
     game->map_width = 0;
     game->map_height = 0;
+	game->total_items = 0;
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		game->map_height++;
@@ -121,6 +124,18 @@ void	ft_parsing(char *file_path, t_game *game)
 		if (game->map_width == 0)
 			game->map_width = ftff_strlen(line) - 1;
 		game->map[j] = line;
+		i = 0;
+		while (line[i])
+		{
+			if (line[i] == 'P')
+			{
+				game->player_start_x = i;
+				game->player_start_y = j;
+			}
+			else if (line[i] == 'C')
+				game->total_items++;
+			i++;
+		}
 		j++;
 	}
 	game->map[j] = NULL;

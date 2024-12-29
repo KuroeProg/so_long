@@ -1,6 +1,6 @@
 NAME = so_long
 
-CC = gcc
+CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRCS_DIR = .
@@ -16,6 +16,7 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/move.c \
 	$(SRCS_DIR)/init.c \
 	$(SRCS_DIR)/parsing.c \
+	$(SRCS_DIR)/parsing_bis.c \
 	$(SRCS_DIR)/check_map.c \
 	$(UTILS_DIR)/get_next_line.c \
 	$(UTILS_DIR)/get_next_line_utils.c \
