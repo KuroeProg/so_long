@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 21:30:43 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/29 19:46:29 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/29 23:14:18 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	move_player(t_game *game, int direction)
 	{
 		if (game->map[new_y][new_x] != '1')
 		{
-			game->map[game->player_y][game->player_x] = '0';
+			if (game->map[game->player_y][game->player_x] != 'E')
+				game->map[game->player_y][game->player_x] = '0';
 			game->player_x = new_x;
 			game->player_y = new_y;
 			handle_player_action(game, new_x, new_y);
