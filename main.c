@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/29 17:19:15 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/29 19:53:54 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (ft_printf("Error\nUsage: ./so_long [map.ber]\n"), 1);
+	initialize_game(&game);
 	game.mlx_connection = mlx_init();
 	game.mlx_window = mlx_new_window(game.mlx_connection, WIDTH, HEIGHT, "so_long");
 	ft_parsing(argv[1], &game);

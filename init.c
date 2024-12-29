@@ -10,3 +10,24 @@ void	initialize_player(t_game *game, int start_x, int start_y)
 	game->collected_items = 0;
 	game->move_count = 0;
 }
+
+void	initialize_game(t_game *game)
+{
+	game->mlx_connection = NULL;
+	game->mlx_window = NULL;
+	game->map = NULL;
+	game->img.img_path = NULL;
+	game->img.img_wall = NULL;
+	game->img.img_player = NULL;
+	game->img.img_item = NULL;
+	game->img.img_exit = NULL;
+	game->map_width = 0;
+	game->map_height = 0;
+	game->player_x = 0;
+	game->player_y = 0;
+	game->collected_items = 0;
+	game->total_items = 0;
+	game->player_start_x = 0;
+	game->player_start_y = 0;
+	game->move_count = 0;
+}

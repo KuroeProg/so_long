@@ -73,6 +73,6 @@ void	ft_movesprite(char *line, void *mlx_connection, void *mlx_window, int j, t_
 void	free_sprites(t_img *img, void *mlx_connection);
 int     ftff_strlen(char *str);
 int		render_frame(t_game *game);
-
+void	initialize_game(t_game *game);
 
 #endif
