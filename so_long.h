@@ -82,5 +82,7 @@ void	free_sprites(t_img *img, void *mlx_connection);
 int		ftff_strlen(char *str);
 int		render_frame(t_game *game);
 void	initialize_game(t_game *game);
+void    is_conform(t_game *game);
+void	ft_error(void);
 
 #endif

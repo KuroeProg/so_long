@@ -23,3 +23,9 @@ int     ftff_strlen(char *str)
         i++;
     return (i);
 }
+
+void	ft_error(void)
+{
+	ft_printf("Error\nInvalid map\n");
+	exit(1);
+}

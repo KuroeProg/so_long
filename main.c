@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/29 21:38:44 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/30 20:12:27 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	main(int argc, char **argv)
 	ft_parsing(argv[1], &game);
 	if (game.map_height == 0 || game.map_width == 0)
 		return (ft_printf("Error\nInvalid map\n"), 1);
+	void    is_conform(t_game *game);
 	mlx_destroy_window(game.mlx_connection, game.mlx_window);
 	game.mlx_window = mlx_new_window(game.mlx_connection, game.map_width * 32, game.map_height * 32, "so_long");
 	game.img = load_sprites(game.mlx_connection);
