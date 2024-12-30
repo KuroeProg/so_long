@@ -6,12 +6,18 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 21:30:43 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/29 23:14:18 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/29 23:53:31 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/* **************************************************************************
+** 0 = up
+** 1 = down
+** 2 = left
+** 3 = right
+** **************************************************************************/
 static void initialize_coordinates(int *new_x, int *new_y, t_game *game, int direction)
 {
 	*new_x = game->player_x;

@@ -31,3 +31,10 @@ void	initialize_game(t_game *game)
 	game->player_start_y = 0;
 	game->move_count = 0;
 }
+
+void	initialize_check(t_check *check)
+{
+	check->check_exit = 0;
+	check->check_player = 0;
+	check->check_item = 0;
+}

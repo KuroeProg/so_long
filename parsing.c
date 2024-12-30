@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 15:07:50 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/29 17:41:17 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/30 01:29:43 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,7 @@ void	ft_parsing(char *file_path, t_game *game)
 	if (fd < 0)
 		return ;
 	game->img = load_sprites(game->mlx_connection);
-    game->map_width = 0;
-    game->map_height = 0;
-	game->total_items = 0;
-	while ((line = get_next_line(fd)) != NULL)
+    while ((line = get_next_line(fd)) != NULL)
 	{
 		game->map_height++;
 		free(line);
