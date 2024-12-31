@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 01:21:48 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/31 17:21:07 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/31 21:56:44 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,32 @@ void	ft_check(t_check *check, int i, int j, t_game *game)
 {
 	int k;
 	int l;
+	char **map_copy;
 
-	k = 0;
-	l = 0;
 	if (check->check_exit != 1 || check->check_player != 1
 		|| check->check_item < 1)
-		{
-			ft_printf("Erreur pas de sortie, joueur ou moinsd;un item\n");
 			ft_error();
-		}
-	char map_copy[game->map_height][game->map_width];
-	while (k < game->map_height)
-	{
+	map_copy = malloc(sizeof(char *) * game->map_height);
+    k = 0;
+    while (k < game->map_height)
+    {
+        map_copy[k] = malloc(sizeof(char) * game->map_width);
+		l = 0;
 		while (l < game->map_width)
 		{
 			map_copy[k][l] = game->map[k][l];
 			l++;
 		}
 		k++;
-	}
+    }
 	ft_flood_fill((char **)map_copy, game->map_width, game->map_height, i, j);
+	k = 0;
+	while (k < game->map_height)
+	{
+		free (map_copy[k]);
+		k++;
+	}
+	free (map_copy);
 }
 
 void	ft_isborder(t_game *game)
@@ -64,20 +70,14 @@ void	ft_isborder(t_game *game)
 	while (i < game->map_width)
 	{
 		if (game->map[0][i] != '1' || game->map[game->map_height - 1][i] != '1')
-		{
-			ft_printf("rebord pas 1");
 			ft_error();
-		}
 		i++;
 	}
 	j = 0;
 	while (j < game->map_height)
 	{
 		if (game->map[j][0] != '1' || game->map[j][game->map_width - 1] != '1')
-		{
-			ft_printf("rebord pas 1");
 			ft_error();
-		}
 		j++;
 	}
 }
