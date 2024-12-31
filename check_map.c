@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 01:21:48 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/31 22:27:21 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/31 23:07:14 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void    is_conform(t_game *game)
 	t_check		check;
 
 	check = (t_check){0, 0, 0};
+	is_rectangular(game);
 	ft_isborder(game);
-	//is_rectangular(game);
 	j = 0;
 	while (j < game->map_height)
 	{

@@ -86,5 +86,6 @@ void    is_conform(t_game *game);
 void	ft_error(void);
 void	initialize_check(t_check *check);
 void    is_rectangular(t_game *game);
+int     nl_strlen(char *str);
 
 #endif

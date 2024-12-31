@@ -24,6 +24,16 @@ int     ftff_strlen(char *str)
     return (i);
 }
 
+int     nl_strlen(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i] && str[i] != '\n')
+        i++;
+    return (i);
+}
+
 void	ft_error(void)
 {
 	ft_printf("Error\nInvalid map\n");
