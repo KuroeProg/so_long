@@ -45,7 +45,7 @@ void	ft_error(int n)
     if (n == 4)
         ft_printf("Number of Items invalid (must be at least 1)\n");
     if (n == 5)
-        ft_printf("Error\nCertain Elements are inaccessible\n");
+        ft_printf("Error\nElements are out of bound\n");
     if (n == 6)
         ft_printf("Error\nMap is not a rectangular\n");
 	
