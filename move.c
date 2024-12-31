@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 21:30:43 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/29 23:53:31 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/31 23:32:17 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void initialize_coordinates(int *new_x, int *new_y, t_game *game, int dir
 ** If the player move on an item, we will call the collect_item function.
 ** If the player move on the exit, we will call the check_exit function.
 ** **************************************************************************/
-void	move_player(t_game *game, int direction)
+int	move_player(t_game *game, int direction)
 {
 	int new_x;
 	int new_y;
@@ -56,8 +56,10 @@ void	move_player(t_game *game, int direction)
 			handle_player_action(game, new_x, new_y);
 			mlx_clear_window(game->mlx_connection, game->mlx_window);
 			render_frame(game);
+			return (1);
 		}
 	}
+	return (0);
 }
 
 /* **************************************************************************

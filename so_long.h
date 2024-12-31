@@ -71,7 +71,7 @@ void	display_line(char *line, void *mlx_connection, void *mlx_window, t_img *img
 int		handle_keypress(int keycode, void *param);
 int		ft_sprites_manage(void *mlx);
 int		handle_destroy(void *param);
-void	move_player(t_game *game, int direction);
+int		move_player(t_game *game, int direction);
 int		check_exit(t_game *game);
 void	collect_item(t_game *game);
 void	handle_player_action(t_game *game, int x, int y);
@@ -83,9 +83,10 @@ int		ftff_strlen(char *str);
 int		render_frame(t_game *game);
 void	initialize_game(t_game *game);
 void    is_conform(t_game *game);
-void	ft_error(void);
+void	ft_error(int n);
 void	initialize_check(t_check *check);
 void    is_rectangular(t_game *game);
 int     nl_strlen(char *str);
+void	ft_checkerror(t_check *check);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 01:21:48 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/31 23:07:14 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/31 23:53:36 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	ft_check(t_check *check, int i, int j, t_game *game)
 
 	if (check->check_exit != 1 || check->check_player != 1
 		|| check->check_item < 1)
-			ft_error();
+			ft_checkerror(check);
 	if (game->map_height == game->map_width)
-		ft_error();
+		ft_error(6);
 	map_copy = malloc(sizeof(char *) * game->map_height);
     k = 0;
     while (k < game->map_height)
@@ -62,7 +62,7 @@ void	ft_check(t_check *check, int i, int j, t_game *game)
 		while (l < game->map_width)
 		{
 			if (map_copy[k][l] == 'C' || map_copy[k][l] == 'E')
-				ft_error();
+				ft_error(5);
 			l++;
 		}
 		k++;
@@ -85,14 +85,16 @@ void	ft_isborder(t_game *game)
 	while (i < game->map_width)
 	{
 		if (game->map[0][i] != '1' || game->map[game->map_height - 1][i] != '1')
-			ft_error();
+		{
+			ft_error(1);
+		}
 		i++;
 	}
 	j = 0;
 	while (j < game->map_height)
 	{
 		if (game->map[j][0] != '1' || game->map[j][game->map_width - 1] != '1')
-			ft_error();
+			ft_error(1);
 		j++;
 	}
 }

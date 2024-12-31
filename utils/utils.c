@@ -34,8 +34,20 @@ int     nl_strlen(char *str)
     return (i);
 }
 
-void	ft_error(void)
+void	ft_error(int n)
 {
-	ft_printf("Error\nInvalid map\n");
-	exit(1);
+	if (n == 1)
+        ft_printf("Error\nMap not surrounded by walls\n");
+    if (n == 2)
+        ft_printf("Number of Exit invalid (must be 1)\n");
+    if (n == 3)
+        ft_printf("Number of Player invalid (must be 1)\n");
+    if (n == 4)
+        ft_printf("Number of Items invalid (must be at least 1)\n");
+    if (n == 5)
+        ft_printf("Error\nCertain Elements are inaccessible\n");
+    if (n == 6)
+        ft_printf("Error\nMap is not a rectangular\n");
+	
+    exit(1);
 }
