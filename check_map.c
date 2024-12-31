@@ -6,50 +6,78 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 01:21:48 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/30 20:22:04 by cfiachet         ###   ########.fr       */
+/*   Updated: 2024/12/31 17:21:07 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_flood_fill(t_game *game, int i, int j)
+void	ft_flood_fill(char **map, int map_width, int map_height, int i, int j)
 {
-	if (i < 0 || j < 0 || i >= game->map_width || j >= game->map_height)
-		return ;
-	if (game->map[j][i] == '1' || game->map[j][i] == 'F')
-		return ;
-	if (game->map[j][i] == '0' || game->map[j][i] == 'P' 
-		|| game->map[j][i] == 'C' || game->map[j][i] == 'E')
-	{
-		game->map[j][i] = 'F';
-		ft_flood_fill(game, i + 1, j);
-		ft_flood_fill(game, i - 1, j);
-		ft_flood_fill(game, i, j + 1);
-		ft_flood_fill(game, i, j - 1);
-	}
+    if (i < 0 || j < 0 || i >= map_width || j >= map_height)
+        return;
+    if (map[j][i] == '1' || map[j][i] == 'F')
+        return;
+    if (map[j][i] == '0' || map[j][i] == 'P' 
+        || map[j][i] == 'C' || map[j][i] == 'E')
+    {
+        map[j][i] = 'F';
+        ft_flood_fill(map, map_width, map_height, i + 1, j);
+        ft_flood_fill(map, map_width, map_height, i - 1, j);
+        ft_flood_fill(map, map_width, map_height, i, j + 1);
+        ft_flood_fill(map, map_width, map_height, i, j - 1);
+    }
 }
+
 void	ft_check(t_check *check, int i, int j, t_game *game)
 {
+	int k;
+	int l;
+
+	k = 0;
+	l = 0;
 	if (check->check_exit != 1 || check->check_player != 1
 		|| check->check_item < 1)
 		{
+			ft_printf("Erreur pas de sortie, joueur ou moinsd;un item\n");
 			ft_error();
 		}
-	ft_flood_fill(game, i, j);
+	char map_copy[game->map_height][game->map_width];
+	while (k < game->map_height)
+	{
+		while (l < game->map_width)
+		{
+			map_copy[k][l] = game->map[k][l];
+			l++;
+		}
+		k++;
+	}
+	ft_flood_fill((char **)map_copy, game->map_width, game->map_height, i, j);
 }
 
-void	ft_isborder(int *i, int *j, t_game *game)
+void	ft_isborder(t_game *game)
 {
-	while (*i < game->map_width)
+	int i;
+	int j;
+
+	i = 0;
+	while (i < game->map_width)
 	{
-		if (game->map[0][*i] != '1' || game->map[game->map_height - 1][*i] != '1')
+		if (game->map[0][i] != '1' || game->map[game->map_height - 1][i] != '1')
+		{
+			ft_printf("rebord pas 1");
 			ft_error();
+		}
 		i++;
 	}
-	while (*j < game->map_height)
+	j = 0;
+	while (j < game->map_height)
 	{
-		if (game->map[*j][0] != '1' || game->map[*j][game->map_width - 1] != '1')
+		if (game->map[j][0] != '1' || game->map[j][game->map_width - 1] != '1')
+		{
+			ft_printf("rebord pas 1");
 			ft_error();
+		}
 		j++;
 	}
 }
@@ -60,24 +88,24 @@ void    is_conform(t_game *game)
 	int			j;
 	t_check		check;
 
-	j = 0;
-	i = 0;
 	check = (t_check){0, 0, 0};
-	ft_isborder(&i, &j, game);
+	ft_isborder(game);
+	j = 0;
 	while (j < game->map_height)
 	{
+		i = 0;
 		while (i < game->map_width)
 		{
 			if (game->map[j][i] == 'C')
-				check.check_item++;
+				(check.check_item)++;
 			if (game->map[j][i] == 'E')
-				check.check_exit++;
+				(check.check_exit)++;
 			if (game->map[j][i] == 'P')
-				check.check_player++;
+				(check.check_player)++;
 			i++;
 		}
-		i = 0;
 		j++;
 	}
+	ft_printf("Items: %d, Exits: %d, Players: %d\n", check.check_item, check.check_exit, check.check_player);
 	ft_check(&check, game->player_start_x, game->player_start_y, game);
 }

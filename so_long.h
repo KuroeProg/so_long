@@ -84,5 +84,6 @@ int		render_frame(t_game *game);
 void	initialize_game(t_game *game);
 void    is_conform(t_game *game);
 void	ft_error(void);
+void	initialize_check(t_check *check);
 
 #endif
