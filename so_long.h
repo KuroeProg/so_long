@@ -1,5 +1,5 @@
 /* ************************************************************************** */
-/*												                          */
+/*													                      */
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -54,7 +54,7 @@ typedef struct s_game
 	int		player_start_x;
 	int		player_start_y;
 	int		move_count;
-	int     is_updated;
+	int		is_updated;
 }			t_game;
 
 typedef struct check
@@ -83,16 +83,15 @@ void	free_sprites(t_img *img, void *mlx_connection);
 int		ftff_strlen(char *str);
 int		render_frame(t_game *game);
 void	initialize_game(t_game *game);
-void    is_conform(t_game *game);
+void	is_conform(t_game *game);
 void	ft_error(int n, t_game *game);
 void	initialize_check(t_check *check);
-void    is_rectangular(t_game *game);
-int     nl_strlen(char *str);
+void	is_rectangular(t_game *game);
+int		nl_strlen(char *str);
 void	ft_checkerror(t_check *check, t_game *game);
 void	free_map(char **map);
 void	initialize_img(t_img *img);
-void    free_game(t_game *game);
+void	free_game(t_game *game);
 void	free_map_copy(char **map_copy, int map_height);
-
 
 #endif

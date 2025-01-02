@@ -1,5 +1,5 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*													                        */
 /*                                                        :::      ::::::::   */
 /*   check_mapbis.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -12,10 +12,10 @@
 
 #include "so_long.h"
 
-void    is_rectangular(t_game *game)
+void	is_rectangular(t_game *game)
 {
-    int i;
-    int line_length;
+	int	i;
+	int	line_length;
 
 	if (!game->map || game->map_height == 1)
 	{
@@ -25,18 +25,18 @@ void    is_rectangular(t_game *game)
 			ft_printf("Map is too small\n");
 		close_program(game);
 	}
-    line_length = nl_strlen(game->map[0]);
+	line_length = nl_strlen(game->map[0]);
 	i = 1;
-    while (i < game->map_height)
-    {
-        if (nl_strlen(game->map[i]) != line_length)
-        {
-            ft_printf("Error\nMap is not rectangular\n");
-            close_program(game);
-        }
-        i++;
-    }
-    game->map_width = line_length;
+	while (i < game->map_height)
+	{
+		if (nl_strlen(game->map[i]) != line_length)
+		{
+			ft_printf("Error\nMap is not rectangular\n");
+			close_program(game);
+		}
+		i++;
+	}
+	game->map_width = line_length;
 }
 
 void	ft_checkerror(t_check *check, t_game *game)
@@ -49,13 +49,15 @@ void	ft_checkerror(t_check *check, t_game *game)
 		ft_error(4, game);
 }
 
-void free_map_copy(char **map_copy, int map_height)
+void	free_map_copy(char **map_copy, int map_height)
 {
-    int k = 0;
-    while (k < map_height)
-    {
-        free(map_copy[k]);
-        k++;
-    }
-    free(map_copy);
+	int	k;
+
+	k = 0;
+	while (k < map_height)
+	{
+		free(map_copy[k]);
+		k++;
+	}
+	free(map_copy);
 }

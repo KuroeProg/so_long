@@ -1,12 +1,12 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*			                                                                */
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 01:21:48 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 22:16:07 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 22:34:54 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,70 +14,68 @@
 
 void	ft_flood_fill(char **map, int map_width, int map_height, int i, int j)
 {
-    if (i < 0 || j < 0 || i >= map_width || j >= map_height)
-        return;
-    if (map[j][i] == '1' || map[j][i] == 'F')
-	
-        return;
-    if (map[j][i] == '0' || map[j][i] == 'P' 
-        || map[j][i] == 'C' || map[j][i] == 'E')
-        map[j][i] = 'F';
+	if (i < 0 || j < 0 || i >= map_width || j >= map_height)
+		return ;
+	if (map[j][i] == '1' || map[j][i] == 'F')
+		return ;
+	if (map[j][i] == '0' || map[j][i] == 'P'
+		|| map[j][i] == 'C' || map[j][i] == 'E')
+		map[j][i] = 'F';
 	else
-		return;
-    ft_flood_fill(map, map_width, map_height, i + 1, j);
-    ft_flood_fill(map, map_width, map_height, i - 1, j);
-    ft_flood_fill(map, map_width, map_height, i, j + 1);
-    ft_flood_fill(map, map_width, map_height, i, j - 1);
-    
+		return ;
+	ft_flood_fill(map, map_width, map_height, i + 1, j);
+	ft_flood_fill(map, map_width, map_height, i - 1, j);
+	ft_flood_fill(map, map_width, map_height, i, j + 1);
+	ft_flood_fill(map, map_width, map_height, i, j - 1);
 }
 
 void	ft_check(t_check *check, int i, int j, t_game *game)
 {
-    int k;
-    int l;
-    char **map_copy;
+	int		k;
+	int		l;
+	char	**map_copy;
 
-    if (check->check_exit != 1 || check->check_player != 1
-        || check->check_item < 1)
-            ft_checkerror(check, game);
-    if (game->map_height == game->map_width)
-        ft_error(6, game);
-    map_copy = malloc(sizeof(char *) * game->map_height);
-    k = 0;
-    while (k < game->map_height)
-    {
-        map_copy[k] = malloc(sizeof(char) * game->map_width);
-        l = 0;
-        while (l < game->map_width)
-        {
-            map_copy[k][l] = game->map[k][l];
-            l++;
-        }
-        k++;
-    }
-    ft_flood_fill((char **)map_copy, game->map_width, game->map_height, i, j);
-    k = 0;
-    while (k < game->map_height)
-    {
-        l = 0;
-        while (l < game->map_width)
-        {
-            if (map_copy[k][l] == 'C' || map_copy[k][l] == 'E')
-            {
-                free_map_copy(map_copy, game->map_height);
-	            ft_error(5, game);
-            }
-            l++;
-        }
-        k++;
-    }
-    free_map_copy(map_copy, game->map_height);
+	if (check->check_exit != 1 || check->check_player != 1
+		|| check->check_item < 1)
+		ft_checkerror(check, game);
+	if (game->map_height == game->map_width)
+		ft_error(6, game);
+	map_copy = malloc(sizeof(char *) * game->map_height);
+	k = 0;
+	while (k < game->map_height)
+	{
+		map_copy[k] = malloc(sizeof(char) * game->map_width);
+		l = 0;
+		while (l < game->map_width)
+		{
+			map_copy[k][l] = game->map[k][l];
+			l++;
+		}
+		k++;
+	}
+	ft_flood_fill((char **)map_copy, game->map_width, game->map_height, i, j);
+	k = 0;
+	while (k < game->map_height)
+	{
+		l = 0;
+		while (l < game->map_width)
+		{
+			if (map_copy[k][l] == 'C' || map_copy[k][l] == 'E')
+			{
+				free_map_copy(map_copy, game->map_height);
+				ft_error(5, game);
+			}
+			l++;
+		}
+		k++;
+	}
+	free_map_copy(map_copy, game->map_height);
 }
 
 void	ft_isborder(t_game *game)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < game->map_width)
@@ -97,7 +95,7 @@ void	ft_isborder(t_game *game)
 	}
 }
 
-void    is_conform(t_game *game)
+void	is_conform(t_game *game)
 {
 	int			i;
 	int			j;

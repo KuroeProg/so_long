@@ -6,15 +6,15 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 09:03:11 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 18:51:21 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 22:31:11 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void    free_map(char **map)
+void	free_map(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!map)
@@ -43,9 +43,9 @@ void	free_sprites(t_img *img, void *mlx_connection)
 		mlx_destroy_image(mlx_connection, img->img_exit);
 }
 
-int     ftff_strlen(char *str)
+int	fftff_strlen(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -53,9 +53,9 @@ int     ftff_strlen(char *str)
 	return (i);
 }
 
-int     nl_strlen(char *str)
+int	fnl_strlen(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] && str[i] != '\n')

@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 21:30:43 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 16:29:23 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 22:40:54 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** 2 = left
 ** 3 = right
 ** **************************************************************************/
-static void initialize_coordinates(int *new_x, int *new_y, t_game *game, int direction)
+static void	initialize_coordinates(int *new_x, int *new_y, t_game *game, int direction)
 {
 	*new_x = game->player_x;
 	*new_y = game->player_y;
@@ -31,6 +31,7 @@ static void initialize_coordinates(int *new_x, int *new_y, t_game *game, int dir
 	else if (direction == 3)
 		(*new_x)++;
 }
+
 /* **************************************************************************
 ** This function will move the player on the map.
 ** We will check if the player can move on the next tile. (if it's a wall or not)
@@ -41,8 +42,8 @@ static void initialize_coordinates(int *new_x, int *new_y, t_game *game, int dir
 ** **************************************************************************/
 int	move_player(t_game *game, int direction)
 {
-	int new_x;
-	int new_y;
+	int	new_x;
+	int	new_y;
 
 	initialize_coordinates(&new_x, &new_y, game, direction);
 	if (new_x >= 0 && new_x < game->map_width && new_y >= 0 && new_y < game->map_height)
@@ -79,7 +80,7 @@ void	handle_player_action(t_game *game, int x, int y)
 	}
 }
 
-int		check_exit(t_game *game)
+int	check_exit(t_game *game)
 {
 	if (game->collected_items != game->total_items)
 	{
