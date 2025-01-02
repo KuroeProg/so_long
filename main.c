@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 14:37:24 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 15:59:28 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	close_program(void *param)
     t_game *game = (t_game *)param;
 
     free_game(game);
+    free_sprites(&game->img, game->mlx_connection);
     exit(0);
     return (0);
 }
-
 /* ********************************************************************
 ** The main function is here to 'pilote' the program
 ** It will initialize the mlx connection, the window, the sprites
@@ -48,7 +48,6 @@ int	close_program(void *param)
 ** the 'run_game_loop' function is a custom function that will run the game loop
 ** at the end, it will free the memory and close the program.
 ** *******************************************************************/
-
 int	main(int argc, char **argv)
 {
     t_game	game;
@@ -62,7 +61,7 @@ int	main(int argc, char **argv)
     is_conform(&game);
     mlx_destroy_window(game.mlx_connection, game.mlx_window);
     game.mlx_window = mlx_new_window(game.mlx_connection, game.map_width * 32, game.map_height * 32, "so_long");
-    game.img = load_sprites(game.mlx_connection);
+    //game.img = load_sprites(game.mlx_connection);
     initialize_player(&game, game.player_start_x, game.player_start_y);
     mlx_key_hook(game.mlx_window, handle_keypress, &game);
     mlx_loop_hook(game.mlx_connection, render_frame, &game);
