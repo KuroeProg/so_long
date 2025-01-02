@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 01:21:48 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/31 23:53:36 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 21:54:51 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,48 +32,56 @@ void	ft_flood_fill(char **map, int map_width, int map_height, int i, int j)
 
 void	ft_check(t_check *check, int i, int j, t_game *game)
 {
-	int k;
-	int l;
-	char **map_copy;
+    int k;
+    int l;
+    char **map_copy;
 
-	if (check->check_exit != 1 || check->check_player != 1
-		|| check->check_item < 1)
-			ft_checkerror(check);
-	if (game->map_height == game->map_width)
-		ft_error(6);
-	map_copy = malloc(sizeof(char *) * game->map_height);
+    if (check->check_exit != 1 || check->check_player != 1
+        || check->check_item < 1)
+            ft_checkerror(check, game);
+    if (game->map_height == game->map_width)
+        ft_error(6, game);
+    map_copy = malloc(sizeof(char *) * game->map_height);
     k = 0;
     while (k < game->map_height)
     {
         map_copy[k] = malloc(sizeof(char) * game->map_width);
-		l = 0;
-		while (l < game->map_width)
-		{
-			map_copy[k][l] = game->map[k][l];
-			l++;
-		}
-		k++;
+        l = 0;
+        while (l < game->map_width)
+        {
+            map_copy[k][l] = game->map[k][l];
+            l++;
+        }
+        k++;
     }
-	ft_flood_fill((char **)map_copy, game->map_width, game->map_height, i, j);
-	k = 0;
-	while (k < game->map_height)
-	{
-		l = 0;
-		while (l < game->map_width)
-		{
-			if (map_copy[k][l] == 'C' || map_copy[k][l] == 'E')
-				ft_error(5);
-			l++;
-		}
-		k++;
-	}
-	k = 0;
-	while (k < game->map_height)
-	{
-		free (map_copy[k]);
-		k++;
-	}
-	free (map_copy);
+    ft_flood_fill((char **)map_copy, game->map_width, game->map_height, i, j);
+    k = 0;
+    while (k < game->map_height)
+    {
+        l = 0;
+        while (l < game->map_width)
+        {
+            if (map_copy[k][l] == 'C' || map_copy[k][l] == 'E')
+            {
+                while (k < game->map_height)
+                {
+                    free(map_copy[k]);
+                    k++;
+                }
+                free(map_copy);
+                ft_error(5, game);
+            }
+            l++;
+        }
+        k++;
+    }
+    k = 0;
+    while (k < game->map_height)
+    {
+        free(map_copy[k]);
+        k++;
+    }
+    free(map_copy);
 }
 
 void	ft_isborder(t_game *game)
@@ -86,7 +94,7 @@ void	ft_isborder(t_game *game)
 	{
 		if (game->map[0][i] != '1' || game->map[game->map_height - 1][i] != '1')
 		{
-			ft_error(1);
+			close_program(game);
 		}
 		i++;
 	}
@@ -94,7 +102,7 @@ void	ft_isborder(t_game *game)
 	while (j < game->map_height)
 	{
 		if (game->map[j][0] != '1' || game->map[j][game->map_width - 1] != '1')
-			ft_error(1);
+			close_program(game);
 		j++;
 	}
 }

@@ -30,6 +30,7 @@ void	initialize_game(t_game *game)
 	game->player_start_x = 0;
 	game->player_start_y = 0;
 	game->move_count = 0;
+	game->is_updated = 0;
 }
 
 void	initialize_check(t_check *check)

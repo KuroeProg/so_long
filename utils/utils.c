@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 09:03:11 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 13:21:58 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 18:51:21 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int     nl_strlen(char *str)
 	return (i);
 }
 
-void	ft_error(int n)
+void	ft_error(int n, t_game *game)
 {
 	if (n == 1)
 		ft_printf("Error\nMap not surrounded by walls\n");
@@ -77,5 +77,5 @@ void	ft_error(int n)
 		ft_printf("Error\nElements are out of bound\n");
 	if (n == 6)
 		ft_printf("Error\nMap is not a rectangular\n");
-	exit(1);
+	close_program(game);
 }

@@ -36,8 +36,9 @@ int    handle_keypress(int keycode, void *param)
 ** **************************************************************************/
 int    handle_destroy(void *param)
 {
-    (void)param;
+	t_game *game;
+    game = (t_game *)param;
     ft_printf("destroyed\n");
-    exit(0);
+    close_program(game);
     return (0);
 }

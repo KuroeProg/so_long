@@ -54,6 +54,7 @@ typedef struct s_game
 	int		player_start_x;
 	int		player_start_y;
 	int		move_count;
+	int     is_updated;
 }			t_game;
 
 typedef struct check
@@ -65,7 +66,7 @@ typedef struct check
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		main(int argc, char **argv);
-int		close_program(void *mlx_connection);
+int		close_program(void *param);
 void	ft_parsing(char *file_path, t_game *game);
 void	display_line(char *line, void *mlx_connection, void *mlx_window, t_img *img, int j);
 int		handle_keypress(int keycode, void *param);
@@ -83,11 +84,11 @@ int		ftff_strlen(char *str);
 int		render_frame(t_game *game);
 void	initialize_game(t_game *game);
 void    is_conform(t_game *game);
-void	ft_error(int n);
+void	ft_error(int n, t_game *game);
 void	initialize_check(t_check *check);
 void    is_rectangular(t_game *game);
 int     nl_strlen(char *str);
-void	ft_checkerror(t_check *check);
+void	ft_checkerror(t_check *check, t_game *game);
 void	free_map(char **map);
 void	initialize_img(t_img *img);
 void    free_game(t_game *game);

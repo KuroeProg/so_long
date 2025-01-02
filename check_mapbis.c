@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 22:10:16 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/31 23:54:01 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 19:00:56 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    is_rectangular(t_game *game)
 			ft_printf("Error\nMap is empty\n");
 		else
 			ft_printf("Map is too small\n");
-		exit(1);
+		close_program(game);
 	}
     line_length = nl_strlen(game->map[0]);
 	i = 1;
@@ -32,19 +32,19 @@ void    is_rectangular(t_game *game)
         if (nl_strlen(game->map[i]) != line_length)
         {
             ft_printf("Error\nMap is not rectangular\n");
-            exit(1);
+            close_program(game);
         }
         i++;
     }
     game->map_width = line_length;
 }
 
-void	ft_checkerror(t_check *check)
+void	ft_checkerror(t_check *check, t_game *game)
 {
 	if (check->check_exit != 1)
-		ft_error(2);
+		ft_error(2, game);
 	if (check->check_player != 1)
-		ft_error(3);
+		ft_error(3, game);
 	if (check->check_item < 1)
-		ft_error(4);
+		ft_error(4, game);
 }

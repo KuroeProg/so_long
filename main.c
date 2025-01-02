@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 16:34:49 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 21:45:40 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	close_program(void *param)
 int	main(int argc, char **argv)
 {
     t_game	game;
-
+    
     if (argc != 2)
         return (ft_printf("Error\nUsage: ./so_long [map.ber]\n"), 1);
     initialize_game(&game);
@@ -62,7 +62,11 @@ int	main(int argc, char **argv)
     game.mlx_window = mlx_new_window(game.mlx_connection, game.map_width * 32, game.map_height * 32, "so_long");
     initialize_player(&game, game.player_start_x, game.player_start_y);
     mlx_key_hook(game.mlx_window, handle_keypress, &game);
-    mlx_loop_hook(game.mlx_connection, render_frame, &game);
+    if (game.is_updated == 0)
+    {
+        mlx_loop_hook(game.mlx_connection, render_frame, &game);
+        game.is_updated = 1;
+    }
     mlx_hook(game.mlx_window, 17, 0, close_program, &game);
     mlx_loop(game.mlx_connection);
     close_program(&game);
