@@ -88,5 +88,7 @@ void	initialize_check(t_check *check);
 void    is_rectangular(t_game *game);
 int     nl_strlen(char *str);
 void	ft_checkerror(t_check *check);
+void	free_map(char **map);
+void	initialize_img(t_img *img);
 
 #endif

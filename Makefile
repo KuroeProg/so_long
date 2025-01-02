@@ -10,7 +10,6 @@ MINILIBX_DIR = minilibx-linux
 
 SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/key_handler.c \
-	$(SRCS_DIR)/collision.c \
 	$(SRCS_DIR)/move.c \
 	$(SRCS_DIR)/init.c \
 	$(SRCS_DIR)/parsing.c \

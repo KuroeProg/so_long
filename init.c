@@ -38,3 +38,12 @@ void	initialize_check(t_check *check)
 	check->check_player = 0;
 	check->check_item = 0;
 }
+
+void	initialize_img(t_img *img)
+{
+	img->img_path = NULL;
+	img->img_wall = NULL;
+	img->img_player = NULL;
+	img->img_item = NULL;
+	img->img_exit = NULL;
+}

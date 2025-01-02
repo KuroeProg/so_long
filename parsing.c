@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 15:07:50 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/31 23:39:09 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 12:19:40 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,45 @@ void	ft_movesprite(char *line, void *mlx_connection, void *mlx_window, int j, t_
 t_img	load_sprites(void *mlx_connection)
 {
 	t_img img;
-	int widght;
+	int width;
 	int height;
 
+	initialize_img(&img);
 	img.img_path = mlx_xpm_file_to_image(mlx_connection, 
-		"sprites_solong/grass.xpm", &widght, &height);
+		"sprites_solong/grass.xpm", &width, &height);
+	if (!img.img_path)
+	{
+		free_sprites(&img, mlx_connection);
+		return (img);
+	}
 	img.img_wall = mlx_xpm_file_to_image(mlx_connection, 
-		"sprites_solong/water.xpm", &widght, &height);
+		"sprites_solong/water.xpm", &width, &height);
+	if (!img.img_wall)
+	{
+		free_sprites(&img, mlx_connection);
+		return (img);
+	}
 	img.img_player = mlx_xpm_file_to_image(mlx_connection,
-		"sprites_solong/player.xpm", &widght, &height);
+		"sprites_solong/player.xpm", &width, &height);
+	if (!img.img_player)
+	{
+		free_sprites(&img, mlx_connection);
+		return (img);
+	}
 	img.img_item = mlx_xpm_file_to_image(mlx_connection,
-		"sprites_solong/item.xpm", &widght, &height);
+		"sprites_solong/item.xpm", &width, &height);
+	if (!img.img_item)
+	{
+		free_sprites(&img, mlx_connection);
+		return (img);
+	}
 	img.img_exit = mlx_xpm_file_to_image(mlx_connection,
-		"sprites_solong/exit.xpm", &widght, &height);
+		"sprites_solong/exit.xpm", &width, &height);
+	if (!img.img_exit)
+	{
+		free_sprites(&img, mlx_connection);
+		return (img);
+	}
 	return (img);
 }
 
@@ -105,6 +131,12 @@ void	ft_parsing(char *file_path, t_game *game)
 	if (fd < 0)
 		return ;
 	game->img = load_sprites(game->mlx_connection);
+	if (!game->img.img_path || !game->img.img_wall || !game->img.img_player || !game->img.img_item || !game->img.img_exit)
+	{
+		free_sprites(&game->img, game->mlx_connection);
+		close(fd);
+		return ;
+	}
     while ((line = get_next_line(fd)) != NULL)
 	{
 		game->map_height++;
@@ -114,7 +146,11 @@ void	ft_parsing(char *file_path, t_game *game)
 	game->map = malloc(sizeof(char *) * (game->map_height + 1));
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
+	{
+		free(game->map);
+		free_sprites(&game->img, game->mlx_connection);
 		return ;
+	}
 	j = 0;
 	while ((line = get_next_line(fd)) != NULL)
 	{

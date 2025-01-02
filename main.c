@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/30 20:26:09 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 12:22:58 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,14 @@ int		render_frame(t_game *game)
 int	close_program(void *param)
 {
 	t_game *game = (t_game *)param;
-	mlx_destroy_window(game->mlx_connection, game->mlx_window);
+	if (game->mlx_window)
+		mlx_destroy_window(game->mlx_connection, game->mlx_window);
+	if (game->mlx_connection)
+		mlx_destroy_display(game->mlx_connection);
+	if (game->map)
+		free_map(game->map);
+	free_sprites(&game->img, game->mlx_connection);
+	free(game->mlx_connection);
 	exit(0);
 	return (0);
 }
@@ -57,8 +64,6 @@ int	main(int argc, char **argv)
 	game.mlx_connection = mlx_init();
 	game.mlx_window = mlx_new_window(game.mlx_connection, WIDTH, HEIGHT, "so_long");
 	ft_parsing(argv[1], &game);
-	if (game.map_height == 0 || game.map_width == 0)
-		return (ft_printf("Error\nInvalid map\n"), 1);
 	is_conform(&game);
 	mlx_destroy_window(game.mlx_connection, game.mlx_window);
 	game.mlx_window = mlx_new_window(game.mlx_connection, game.map_width * 32, game.map_height * 32, "so_long");
@@ -68,6 +73,11 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(game.mlx_connection, render_frame, &game);
 	mlx_hook(game.mlx_window, 17, 0, close_program, &game);
 	mlx_loop(game.mlx_connection);
+	free_sprites(&game.img, game.mlx_connection);
+	free_map(game.map);
+	mlx_destroy_window(game.mlx_connection, game.mlx_window);
+	mlx_destroy_display(game.mlx_connection);
+	free(game.mlx_connection);
 	
 	
 	// Free
