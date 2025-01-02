@@ -13,7 +13,7 @@ int    handle_keypress(int keycode, void *param)
 
 	move = 0;
     if (keycode == 0xff1b)
-        exit(0);
+		close_program(game);
     else if (keycode == 0x0077)
 		move = move_player(game, 0);
 	else if (keycode == 0x0073)

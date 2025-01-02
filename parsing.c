@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 15:07:50 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 12:19:40 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 12:55:05 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,47 +68,99 @@ void	ft_movesprite(char *line, void *mlx_connection, void *mlx_window, int j, t_
 ** *******************************************************************/
 t_img	load_sprites(void *mlx_connection)
 {
-	t_img img;
-	int width;
-	int height;
+    t_img img;
+    int width;
+    int height;
 
-	initialize_img(&img);
-	img.img_path = mlx_xpm_file_to_image(mlx_connection, 
-		"sprites_solong/grass.xpm", &width, &height);
-	if (!img.img_path)
-	{
-		free_sprites(&img, mlx_connection);
-		return (img);
-	}
-	img.img_wall = mlx_xpm_file_to_image(mlx_connection, 
-		"sprites_solong/water.xpm", &width, &height);
-	if (!img.img_wall)
-	{
-		free_sprites(&img, mlx_connection);
-		return (img);
-	}
-	img.img_player = mlx_xpm_file_to_image(mlx_connection,
-		"sprites_solong/player.xpm", &width, &height);
-	if (!img.img_player)
-	{
-		free_sprites(&img, mlx_connection);
-		return (img);
-	}
-	img.img_item = mlx_xpm_file_to_image(mlx_connection,
-		"sprites_solong/item.xpm", &width, &height);
-	if (!img.img_item)
-	{
-		free_sprites(&img, mlx_connection);
-		return (img);
-	}
-	img.img_exit = mlx_xpm_file_to_image(mlx_connection,
-		"sprites_solong/exit.xpm", &width, &height);
-	if (!img.img_exit)
-	{
-		free_sprites(&img, mlx_connection);
-		return (img);
-	}
-	return (img);
+    initialize_img(&img);
+    img.img_path = mlx_xpm_file_to_image(mlx_connection, 
+        "sprites_solong/grass.xpm", &width, &height);
+    if (!img.img_path)
+    {
+        free_sprites(&img, mlx_connection);
+        return (img);
+    }
+    img.img_wall = mlx_xpm_file_to_image(mlx_connection, 
+        "sprites_solong/water.xpm", &width, &height);
+    if (!img.img_wall)
+    {
+        free_sprites(&img, mlx_connection);
+        return (img);
+    }
+    img.img_player = mlx_xpm_file_to_image(mlx_connection,
+        "sprites_solong/player.xpm", &width, &height);
+    if (!img.img_player)
+    {
+        free_sprites(&img, mlx_connection);
+        return (img);
+    }
+    img.img_item = mlx_xpm_file_to_image(mlx_connection,
+        "sprites_solong/item.xpm", &width, &height);
+    if (!img.img_item)
+    {
+        free_sprites(&img, mlx_connection);
+        return (img);
+    }
+    img.img_exit = mlx_xpm_file_to_image(mlx_connection,
+        "sprites_solong/exit.xpm", &width, &height);
+    if (!img.img_exit)
+        return (free_sprites(&img, mlx_connection), img);
+    return (img);
+}
+
+void	ft_parsing(char *file_path, t_game *game)
+{
+    int fd;
+    char *line;
+    int j;
+    int i;
+
+    fd = open(file_path, O_RDONLY);
+    if (fd < 0)
+        return ;
+    game->img = load_sprites(game->mlx_connection);
+    if (!game->img.img_path || !game->img.img_wall || !game->img.img_player || !game->img.img_item || !game->img.img_exit)
+    {
+        free_sprites(&game->img, game->mlx_connection);
+        close(fd);
+        return ;
+    }
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        game->map_height++;
+        free(line);
+    }
+    close(fd);
+    game->map = malloc(sizeof(char *) * (game->map_height + 1));
+    fd = open(file_path, O_RDONLY);
+    if (fd < 0)
+    {
+        free(game->map);
+        free_sprites(&game->img, game->mlx_connection);
+        return ;
+    }
+    j = 0;
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        if (game->map_width == 0)
+            game->map_width = ftff_strlen(line) - 1;
+        game->map[j] = line;
+        i = 0;
+        while (line[i])
+        {
+            if (line[i] == 'P')
+            {
+                game->player_start_x = i;
+                game->player_start_y = j;
+            }
+            else if (line[i] == 'C')
+                game->total_items++;
+            i++;
+        }
+        j++;
+    }
+    game->map[j] = NULL;
+    close(fd);
 }
 
 /* ********************************************************************
@@ -120,57 +172,3 @@ t_img	load_sprites(void *mlx_connection)
 ** We use the move_sprite function to put the player, the item and the exit. on the map.
 ** We free the line and close the file. And also free the img, for not having leaks.
 ** *******************************************************************/
-void	ft_parsing(char *file_path, t_game *game)
-{
-	int fd;
-	char *line;
-	int j;
-	int i;
-
-	fd = open(file_path, O_RDONLY);
-	if (fd < 0)
-		return ;
-	game->img = load_sprites(game->mlx_connection);
-	if (!game->img.img_path || !game->img.img_wall || !game->img.img_player || !game->img.img_item || !game->img.img_exit)
-	{
-		free_sprites(&game->img, game->mlx_connection);
-		close(fd);
-		return ;
-	}
-    while ((line = get_next_line(fd)) != NULL)
-	{
-		game->map_height++;
-		free(line);
-	}
-	close(fd);
-	game->map = malloc(sizeof(char *) * (game->map_height + 1));
-	fd = open(file_path, O_RDONLY);
-	if (fd < 0)
-	{
-		free(game->map);
-		free_sprites(&game->img, game->mlx_connection);
-		return ;
-	}
-	j = 0;
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		if (game->map_width == 0)
-			game->map_width = ftff_strlen(line) - 1;
-		game->map[j] = line;
-		i = 0;
-		while (line[i])
-		{
-			if (line[i] == 'P')
-			{
-				game->player_start_x = i;
-				game->player_start_y = j;
-			}
-			else if (line[i] == 'C')
-				game->total_items++;
-			i++;
-		}
-		j++;
-	}
-	game->map[j] = NULL;
-	close(fd);
-}
