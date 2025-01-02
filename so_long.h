@@ -92,5 +92,7 @@ void	ft_checkerror(t_check *check, t_game *game);
 void	free_map(char **map);
 void	initialize_img(t_img *img);
 void    free_game(t_game *game);
+void	free_map_copy(char **map_copy, int map_height);
+
 
 #endif

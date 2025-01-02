@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 01:21:48 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 21:54:51 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 22:16:07 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_flood_fill(char **map, int map_width, int map_height, int i, int j)
     if (i < 0 || j < 0 || i >= map_width || j >= map_height)
         return;
     if (map[j][i] == '1' || map[j][i] == 'F')
+	
         return;
     if (map[j][i] == '0' || map[j][i] == 'P' 
         || map[j][i] == 'C' || map[j][i] == 'E')
@@ -63,25 +64,14 @@ void	ft_check(t_check *check, int i, int j, t_game *game)
         {
             if (map_copy[k][l] == 'C' || map_copy[k][l] == 'E')
             {
-                while (k < game->map_height)
-                {
-                    free(map_copy[k]);
-                    k++;
-                }
-                free(map_copy);
-                ft_error(5, game);
+                free_map_copy(map_copy, game->map_height);
+	            ft_error(5, game);
             }
             l++;
         }
         k++;
     }
-    k = 0;
-    while (k < game->map_height)
-    {
-        free(map_copy[k]);
-        k++;
-    }
-    free(map_copy);
+    free_map_copy(map_copy, game->map_height);
 }
 
 void	ft_isborder(t_game *game)

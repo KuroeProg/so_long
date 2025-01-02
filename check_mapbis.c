@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 22:10:16 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 19:00:56 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 22:10:26 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,15 @@ void	ft_checkerror(t_check *check, t_game *game)
 		ft_error(3, game);
 	if (check->check_item < 1)
 		ft_error(4, game);
+}
+
+void free_map_copy(char **map_copy, int map_height)
+{
+    int k = 0;
+    while (k < map_height)
+    {
+        free(map_copy[k]);
+        k++;
+    }
+    free(map_copy);
 }
