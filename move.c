@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 21:30:43 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/12/31 23:32:17 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:29:23 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,9 @@ int		check_exit(t_game *game)
 	else
 	{
 		ft_printf("You win !\n");
-		exit(0);
+		close_program(game);
 	}
+	return (0);
 }
 
 /* **************************************************************************
