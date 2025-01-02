@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 12:45:08 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/02 14:37:24 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		render_frame(t_game *game)
 	int j;
 
 	j = 0;
-	if (!game->map)
+	if (!game->map || !game->mlx_connection || !game->mlx_window)
 		return (0);
 	while (game->map[j])
 	{
@@ -33,24 +33,8 @@ int		render_frame(t_game *game)
 int	close_program(void *param)
 {
     t_game *game = (t_game *)param;
-    if (game->mlx_window)
-    {
-        mlx_destroy_window(game->mlx_connection, game->mlx_window);
-        game->mlx_window = NULL;
-    }
-    if (game->mlx_connection)
-    {
-        mlx_destroy_display(game->mlx_connection);
-        game->mlx_connection = NULL;
-    }
-    if (game->map)
-    {
-        free_map(game->map);
-        game->map = NULL;
-    }
-    free_sprites(&game->img, game->mlx_connection);
-    free(game->mlx_connection);
-    game->mlx_connection = NULL;
+
+    free_game(game);
     exit(0);
     return (0);
 }
@@ -64,6 +48,7 @@ int	close_program(void *param)
 ** the 'run_game_loop' function is a custom function that will run the game loop
 ** at the end, it will free the memory and close the program.
 ** *******************************************************************/
+
 int	main(int argc, char **argv)
 {
     t_game	game;
@@ -83,6 +68,6 @@ int	main(int argc, char **argv)
     mlx_loop_hook(game.mlx_connection, render_frame, &game);
     mlx_hook(game.mlx_window, 17, 0, close_program, &game);
     mlx_loop(game.mlx_connection);
-    close_program(&game); // Ensure all resources are freed
+    close_program(&game);
     return (0);
 }

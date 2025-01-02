@@ -16,6 +16,7 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/parsing_bis.c \
 	$(SRCS_DIR)/check_mapbis.c \
 	$(SRCS_DIR)/check_map.c \
+	$(SRCS_DIR)/utils/utils2.c \
 	$(UTILS_DIR)/get_next_line.c \
 	$(UTILS_DIR)/get_next_line_utils.c \
 	$(SRCS_DIR)/utils/utils.c
