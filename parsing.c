@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 15:07:50 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 22:44:27 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:29:27 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** We use the mlx_put_image_to_window function to put the sprites on the window.
 ** *******************************************************************/
 
-void	display_line(char *line, void *mlx_connection, void *mlx_window, t_img *img, int j)
+void	display_line(char *line, t_game *game, t_img *img, int j)
 {
 	int	i;
 
@@ -27,10 +27,10 @@ void	display_line(char *line, void *mlx_connection, void *mlx_window, t_img *img
 	while (line[i])
 	{
 		if (line[i] == '1')
-			mlx_put_image_to_window(mlx_connection, mlx_window,
+			mlx_put_image_to_window(game->mlx_connection, game->mlx_window,
 				img->img_wall, i * 32, j * 32);
 		else if (line[i] == '0' || line [i] == 'C' || line[i] == 'E' || line[i] == 'P')
-			mlx_put_image_to_window(mlx_connection, mlx_window,
+			mlx_put_image_to_window(game->mlx_connection, game->mlx_window,
 				img->img_path, i * 32, j * 32);
 		i++;
 	}
@@ -42,7 +42,7 @@ void	display_line(char *line, void *mlx_connection, void *mlx_window, t_img *img
 ** if we find a 'C' we put the item, if we find a 'E' we put the exit.
 ** We use the mlx_put_image_to_window function to put the sprites on the window.
 ** *******************************************************************/
-void	ft_movesprite(char *line, void *mlx_connection, void *mlx_window, int j, t_img *img)
+void	ft_movesprite(char *line, t_game *game, int j, t_img *img)
 {
 	int	i;
 
@@ -50,11 +50,11 @@ void	ft_movesprite(char *line, void *mlx_connection, void *mlx_window, int j, t_
 	while (line[i])
 	{
 		if (line[i] == 'P')
-			mlx_put_image_to_window(mlx_connection, mlx_window, img->img_player, i * 32, j * 32);
+			mlx_put_image_to_window(game->mlx_connection, game->mlx_window, img->img_player, i * 32, j * 32);
 		else if (line[i] == 'C')
-			mlx_put_image_to_window(mlx_connection, mlx_window, img->img_item, i * 32, j * 32);
+			mlx_put_image_to_window(game->mlx_connection, game->mlx_window, img->img_item, i * 32, j * 32);
 		else if (line[i] == 'E')
-			mlx_put_image_to_window(mlx_connection, mlx_window, img->img_exit, i * 32, j * 32);
+			mlx_put_image_to_window(game->mlx_connection, game->mlx_window, img->img_exit, i * 32, j * 32);
 		i++;
 	}
 }

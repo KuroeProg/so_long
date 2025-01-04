@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 09:03:11 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 22:31:11 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/04 17:47:36 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	free_sprites(t_img *img, void *mlx_connection)
 		mlx_destroy_image(mlx_connection, img->img_exit);
 }
 
-int	fftff_strlen(char *str)
+int ftff_strlen(char *str)
 {
 	int	i;
 
@@ -53,7 +53,7 @@ int	fftff_strlen(char *str)
 	return (i);
 }
 
-int	fnl_strlen(char *str)
+int	nl_strlen(char *str)
 {
 	int	i;
 

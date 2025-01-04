@@ -24,7 +24,7 @@ int	handle_keypress(int keycode, void *param)
 	t_game	*game;
 	int		move;
 
-	game - (t_game *)param;
+	game = (t_game *)param;
 	move = 0;
 	if (keycode == 0xff1b)
 		close_program(game);

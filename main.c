@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/02 22:39:40 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:31:17 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	render_frame(t_game *game)
 		return (0);
 	while (game->map[j])
 	{
-		display_line(game->map[j], game->mlx_connection, game->mlx_window, &game->img, j);
-		ft_movesprite(game->map[j], game->mlx_connection, game->mlx_window, j, &game->img);
+		display_line(game->map[j], game, &game->img, j);
+		ft_movesprite(game->map[j], game, j, &game->img);
 		j++;
 	}
 	mlx_put_image_to_window(game->mlx_connection, game->mlx_window, game->img.img_player, game->player_x * 32, game->player_y * 32);
