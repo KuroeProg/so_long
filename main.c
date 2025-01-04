@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 00:49:45 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/04 22:31:17 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:39:37 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	render_frame(t_game *game)
 		ft_movesprite(game->map[j], game, j, &game->img);
 		j++;
 	}
-	mlx_put_image_to_window(game->mlx_connection, game->mlx_window, game->img.img_player, game->player_x * 32, game->player_y * 32);
+	mlx_put_image_to_window(game->mlx_connection, game->mlx_window,
+		game->img.img_player, game->player_x * 32, game->player_y * 32);
 	return (0);
 }
 
@@ -57,11 +58,13 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\nUsage: ./so_long [map.ber]\n"), 1);
 	initialize_game(&game);
 	game.mlx_connection = mlx_init();
-	game.mlx_window = mlx_new_window(game.mlx_connection, WIDTH, HEIGHT, "so_long");
+	game.mlx_window = mlx_new_window(game.mlx_connection,
+			WIDTH, HEIGHT, "so_long");
 	ft_parsing(argv[1], &game);
 	is_conform(&game);
 	mlx_destroy_window(game.mlx_connection, game.mlx_window);
-	game.mlx_window = mlx_new_window(game.mlx_connection, game.map_width * 32, game.map_height * 32, "so_long");
+	game.mlx_window = mlx_new_window(game.mlx_connection,
+			game.map_width * 32, game.map_height * 32, "so_long");
 	initialize_player(&game, game.player_start_x, game.player_start_y);
 	mlx_key_hook(game.mlx_window, handle_keypress, &game);
 	if (game.is_updated == 0)

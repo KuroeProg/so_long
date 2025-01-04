@@ -61,3 +61,23 @@ void	free_map_copy(char **map_copy, int map_height)
 	}
 	free(map_copy);
 }
+
+void	ft_check_free(int k, int l, t_game *game, char **map_copy)
+{
+	k = 0;
+	while (k < game->map_height)
+	{
+		l = 0;
+		while (l < game->map_width)
+		{
+			if (map_copy[k][l] == 'C' || map_copy[k][l] == 'E')
+			{
+				free_map_copy(map_copy, game->map_height);
+				ft_error(5, game);
+			}
+			l++;
+		}
+		k++;
+	}
+	free_map_copy(map_copy, game->map_height);
+}

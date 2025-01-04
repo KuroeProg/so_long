@@ -77,7 +77,7 @@ int		check_exit(t_game *game);
 void	collect_item(t_game *game);
 void	handle_player_action(t_game *game, int x, int y);
 void	initialize_player(t_game *game, int start_x, int start_y);
-t_img	load_sprites(void *mlx_connection);
+t_img	load_sprites(void *mlx_connection, t_img img);
 void	ft_movesprite(char *line, t_game *game, int j, t_img *img);
 void	free_sprites(t_img *img, void *mlx_connection);
 int		ftff_strlen(char *str);
@@ -93,5 +93,9 @@ void	free_map(char **map);
 void	initialize_img(t_img *img);
 void	free_game(t_game *game);
 void	free_map_copy(char **map_copy, int map_height);
+void	ft_flood_fill(char **map, t_game *game, int i, int j);
+void	ft_check_free(int k, int l, t_game *game, char **map_copy);
+void	display_information(t_check	*check);
+
 
 #endif

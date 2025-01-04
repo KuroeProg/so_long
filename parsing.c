@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 15:07:50 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/04 22:29:27 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/04 23:24:50 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 /* ********************************************************************
 ** This function will display the line of the map. By 'Line' we mean
 ** the horizontal line of the map. We loop until the end of the line.
-** If we find a '1' we put the wall sprite, if we find a '0' we put the path sprite.
+** If we find a '1' we put the wall sprite, if we find a '0' 
+** we put the path sprite.
 ** We use the mlx_put_image_to_window function to put the sprites on the window.
 ** *******************************************************************/
 
@@ -29,7 +30,8 @@ void	display_line(char *line, t_game *game, t_img *img, int j)
 		if (line[i] == '1')
 			mlx_put_image_to_window(game->mlx_connection, game->mlx_window,
 				img->img_wall, i * 32, j * 32);
-		else if (line[i] == '0' || line [i] == 'C' || line[i] == 'E' || line[i] == 'P')
+		else if (line[i] == '0' || line [i] == 'C' || line[i] == 'E'
+			|| line[i] == 'P')
 			mlx_put_image_to_window(game->mlx_connection, game->mlx_window,
 				img->img_path, i * 32, j * 32);
 		i++;
@@ -50,11 +52,14 @@ void	ft_movesprite(char *line, t_game *game, int j, t_img *img)
 	while (line[i])
 	{
 		if (line[i] == 'P')
-			mlx_put_image_to_window(game->mlx_connection, game->mlx_window, img->img_player, i * 32, j * 32);
+			mlx_put_image_to_window(game->mlx_connection, game->mlx_window,
+				img->img_player, i * 32, j * 32);
 		else if (line[i] == 'C')
-			mlx_put_image_to_window(game->mlx_connection, game->mlx_window, img->img_item, i * 32, j * 32);
+			mlx_put_image_to_window(game->mlx_connection, game->mlx_window,
+				img->img_item, i * 32, j * 32);
 		else if (line[i] == 'E')
-			mlx_put_image_to_window(game->mlx_connection, game->mlx_window, img->img_exit, i * 32, j * 32);
+			mlx_put_image_to_window(game->mlx_connection, game->mlx_window,
+				img->img_exit, i * 32, j * 32);
 		i++;
 	}
 }
@@ -65,9 +70,8 @@ void	ft_movesprite(char *line, t_game *game, int j, t_img *img)
 ** The variables widght and height will be used to store the size of the sprites.
 ** We return the img structure with the sprites loaded.
 ** *******************************************************************/
-t_img	load_sprites(void *mlx_connection)
+t_img	load_sprites(void *mlx_connection, t_img img)
 {
-	t_img	img;
 	int		width;
 	int		height;
 
@@ -76,7 +80,7 @@ t_img	load_sprites(void *mlx_connection)
 			"sprites_solong/grass.xpm", &width, &height);
 	if (!img.img_path)
 		return (free_sprites(&img, mlx_connection), img);
-	img.img_wall = mlx_xpm_file_to_image(mlx_connection, 
+	img.img_wall = mlx_xpm_file_to_image(mlx_connection,
 			"sprites_solong/water.xpm", &width, &height);
 	if (!img.img_wall)
 		return (free_sprites(&img, mlx_connection), img);
@@ -105,8 +109,9 @@ void	ft_parsing(char *file_path, t_game *game)
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return ;
-	game->img = load_sprites(game->mlx_connection);
-	if (!game->img.img_path || !game->img.img_wall || !game->img.img_player || !game->img.img_item || !game->img.img_exit)
+	game->img = load_sprites(game->mlx_connection, game->img);
+	if (!game->img.img_path || !game->img.img_wall || !game->img.img_player
+		|| !game->img.img_item || !game->img.img_exit)
 	{
 		free_sprites(&game->img, game->mlx_connection);
 		close(fd);

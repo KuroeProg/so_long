@@ -12,9 +12,9 @@
 
 #include "so_long.h"
 
-void	ft_flood_fill(char **map, int map_width, int map_height, int i, int j)
+void	ft_flood_fill(char **map, t_game *game, int i, int j)
 {
-	if (i < 0 || j < 0 || i >= map_width || j >= map_height)
+	if (i < 0 || j < 0 || i >= game->map_width || j >= game->map_height)
 		return ;
 	if (map[j][i] == '1' || map[j][i] == 'F')
 		return ;
@@ -23,10 +23,10 @@ void	ft_flood_fill(char **map, int map_width, int map_height, int i, int j)
 		map[j][i] = 'F';
 	else
 		return ;
-	ft_flood_fill(map, map_width, map_height, i + 1, j);
-	ft_flood_fill(map, map_width, map_height, i - 1, j);
-	ft_flood_fill(map, map_width, map_height, i, j + 1);
-	ft_flood_fill(map, map_width, map_height, i, j - 1);
+	ft_flood_fill(map, game, i + 1, j);
+	ft_flood_fill(map, game, i - 1, j);
+	ft_flood_fill(map, game, i, j + 1);
+	ft_flood_fill(map, game, i, j - 1);
 }
 
 void	ft_check(t_check *check, int i, int j, t_game *game)
@@ -53,23 +53,8 @@ void	ft_check(t_check *check, int i, int j, t_game *game)
 		}
 		k++;
 	}
-	ft_flood_fill((char **)map_copy, game->map_width, game->map_height, i, j);
-	k = 0;
-	while (k < game->map_height)
-	{
-		l = 0;
-		while (l < game->map_width)
-		{
-			if (map_copy[k][l] == 'C' || map_copy[k][l] == 'E')
-			{
-				free_map_copy(map_copy, game->map_height);
-				ft_error(5, game);
-			}
-			l++;
-		}
-		k++;
-	}
-	free_map_copy(map_copy, game->map_height);
+	ft_flood_fill((char **)map_copy, game, i, j);
+	ft_check_free(k, l, game, map_copy);
 }
 
 void	ft_isborder(t_game *game)
@@ -120,6 +105,12 @@ void	is_conform(t_game *game)
 		}
 		j++;
 	}
-	ft_printf("Items: %d, Exits: %d, Players: %d\n", check.check_item, check.check_exit, check.check_player);
+	display_information(&check);
 	ft_check(&check, game->player_start_x, game->player_start_y, game);
+}
+
+void	display_information(t_check	*check)
+{
+	ft_printf("Items: %d, Exits: %d, Players: %d\n",
+		check->check_item, check->check_exit, check->check_player);
 }
