@@ -55,6 +55,8 @@ typedef struct s_game
 	int		player_start_y;
 	int		move_count;
 	int		is_updated;
+	int		i;
+	int		j;
 }			t_game;
 
 typedef struct check
@@ -96,6 +98,9 @@ void	free_map_copy(char **map_copy, int map_height);
 void	ft_flood_fill(char **map, t_game *game, int i, int j);
 void	ft_check_free(int k, int l, t_game *game, char **map_copy);
 void	display_information(t_check	*check);
-
+void	free_fd(t_game *game);
+void	ft_extrct_line(t_game *game, char *line, int fd);
+t_img	xpm_to_img(t_img img, void *mlx_connection, int width, int height);
+void	free_fd_bis(int fd, t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 15:07:50 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/04 23:24:50 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/05 01:56:11 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,36 +75,30 @@ t_img	load_sprites(void *mlx_connection, t_img img)
 	int		width;
 	int		height;
 
+	width = 0;
+	height = 0;
 	initialize_img(&img);
-	img.img_path = mlx_xpm_file_to_image(mlx_connection,
-			"sprites_solong/grass.xpm", &width, &height);
-	if (!img.img_path)
-		return (free_sprites(&img, mlx_connection), img);
-	img.img_wall = mlx_xpm_file_to_image(mlx_connection,
-			"sprites_solong/water.xpm", &width, &height);
-	if (!img.img_wall)
-		return (free_sprites(&img, mlx_connection), img);
-	img.img_player = mlx_xpm_file_to_image(mlx_connection,
-			"sprites_solong/player.xpm", &width, &height);
-	if (!img.img_player)
-		return (free_sprites(&img, mlx_connection), img);
-	img.img_item = mlx_xpm_file_to_image(mlx_connection,
-			"sprites_solong/item.xpm", &width, &height);
-	if (!img.img_item)
-		return (free_sprites(&img, mlx_connection), img);
-	img.img_exit = mlx_xpm_file_to_image(mlx_connection,
-			"sprites_solong/exit.xpm", &width, &height);
-	if (!img.img_exit)
-		return (free_sprites(&img, mlx_connection), img);
+	img = xpm_to_img(img, mlx_connection, width, height);
 	return (img);
 }
+/* ********************************************************************
+** This function will parse the map and display it, by 'parsing' we mean that
+** it will read the file and display the map depends of what is written, in 
+** the window.
+** We check if the fd is valid, if not we return. (fd is the file descriptor)
+** We load the sprites with the load_sprites function.
+** We loop until the end of the file, we read the line and display it with the
+** display_line function.
+** We use the move_sprite function to put the player, the item and the
+** exit. on the map.
+** We free the line and close the file. And also free the img, 
+** for not having leaks.
+** *******************************************************************/
 
 void	ft_parsing(char *file_path, t_game *game)
 {
 	int		fd;
 	char	*line;
-	int		j;
-	int		i;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
@@ -112,56 +106,47 @@ void	ft_parsing(char *file_path, t_game *game)
 	game->img = load_sprites(game->mlx_connection, game->img);
 	if (!game->img.img_path || !game->img.img_wall || !game->img.img_player
 		|| !game->img.img_item || !game->img.img_exit)
-	{
-		free_sprites(&game->img, game->mlx_connection);
-		close(fd);
-		return ;
-	}
-	while ((line = get_next_line(fd)) != NULL)
+		free_fd_bis(fd, game);
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		game->map_height++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	game->map = malloc(sizeof(char *) * (game->map_height + 1));
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
-	{
-		free(game->map);
-		free_sprites(&game->img, game->mlx_connection);
-		return ;
-	}
-	j = 0;
-	while ((line = get_next_line(fd)) != NULL)
+		free_fd(game);
+	ft_extrct_line(game, line, fd);
+}
+
+void	ft_extrct_line(t_game *game, char *line, int fd)
+{
+	game->j = 0;
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		if (game->map_width == 0)
 			game->map_width = ftff_strlen(line) - 1;
-		game->map[j] = line;
-		i = 0;
-		while (line[i])
+		game->map[game->j] = line;
+		game->i = 0;
+		while (line[game->i])
 		{
-			if (line[i] == 'P')
+			if (line[game->i] == 'P')
 			{
-				game->player_start_x = i;
-				game->player_start_y = j;
+				game->player_start_x = game->i;
+				game->player_start_y = game->j;
 			}
-			else if (line[i] == 'C')
+			else if (line[game->i] == 'C')
 				game->total_items++;
-			i++;
+			game->i++;
 		}
-		j++;
+		game->j++;
+		line = get_next_line(fd);
 	}
 	free(line);
-	game->map[j] = NULL;
+	game->map[game->j] = NULL;
 	close(fd);
 }
-
-/* ********************************************************************
-** This function will parse the map and display it, by 'parsing' we mean that
-** it will read the file and display the map depends of what is written, in the window.
-** We check if the fd is valid, if not we return. (fd is the file descriptor)
-** We load the sprites with the load_sprites function.
-** We loop until the end of the file, we read the line and display it with the display_line function.
-** We use the move_sprite function to put the player, the item and the exit. on the map.
-** We free the line and close the file. And also free the img, for not having leaks.
-** *******************************************************************/
