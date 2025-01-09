@@ -67,7 +67,7 @@ void	ft_isborder(t_game *game)
 	{
 		if (game->map[0][i] != '1' || game->map[game->map_height - 1][i] != '1')
 		{
-			close_program(game);
+			ft_error(7, game);
 		}
 		i++;
 	}
@@ -75,7 +75,7 @@ void	ft_isborder(t_game *game)
 	while (j < game->map_height)
 	{
 		if (game->map[j][0] != '1' || game->map[j][game->map_width - 1] != '1')
-			close_program(game);
+			ft_error(7, game);
 		j++;
 	}
 }

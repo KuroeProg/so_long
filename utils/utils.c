@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 09:03:11 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/05 01:56:54 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:22:18 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,7 @@ void	ft_error(int n, t_game *game)
 		ft_printf("Error\nElements are out of bound\n");
 	if (n == 6)
 		ft_printf("Error\nMap is not a rectangular\n");
+	if (n == 7)
+		ft_printf("Border aren't the good value");
 	close_program(game);
 }
