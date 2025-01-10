@@ -22,7 +22,11 @@ void	ft_flood_fill(char **map, t_game *game, int i, int j)
 		|| map[j][i] == 'C' || map[j][i] == 'E')
 		map[j][i] = 'F';
 	else
+	{
+		ft_check_free2(i, j, game, map);
+		ft_error(8, game);
 		return ;
+	}
 	ft_flood_fill(map, game, i + 1, j);
 	ft_flood_fill(map, game, i - 1, j);
 	ft_flood_fill(map, game, i, j + 1);

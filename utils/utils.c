@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 09:03:11 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/09 16:22:18 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/10 19:54:06 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	ft_error(int n, t_game *game)
 	if (n == 6)
 		ft_printf("Error\nMap is not a rectangular\n");
 	if (n == 7)
-		ft_printf("Border aren't the good value");
+		ft_printf("Border aren't the good value\n");
+	if (n == 8)
+		ft_printf("Invalid characters in map\n");
 	close_program(game);
 }

@@ -102,5 +102,6 @@ void	free_fd(t_game *game);
 void	ft_extrct_line(t_game *game, char *line, int fd);
 t_img	xpm_to_img(t_img img, void *mlx_connection, int width, int height);
 void	free_fd_bis(int fd, t_game *game);
+void	ft_check_free2(int k, int l, t_game *game, char **map_copy);
 
 #endif
