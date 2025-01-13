@@ -4,9 +4,9 @@ CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRCS_DIR = srcs/
-UTILS_DIR = utils/gnl
+UTILS_DIR = utils/
 PRINTF_DIR = utils/ft_printf
-MINILIBX_DIR = minilibx-linux
+MINILIBX_DIR = .minilibx-linux
 
 SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/key_handler.c \
@@ -16,14 +16,14 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/parsing_bis.c \
 	$(SRCS_DIR)/check_mapbis.c \
 	$(SRCS_DIR)/check_map.c \
-	$(SRCS_DIR)/utils/utils2.c \
-	$(UTILS_DIR)/get_next_line.c \
-	$(UTILS_DIR)/get_next_line_utils.c \
+	$(UTILS_DIR)utils2.c \
+	$(UTILS_DIR)/gnl/get_next_line.c \
+	$(UTILS_DIR)/gnl//get_next_line_utils.c \
 	$(UTILS_DIR)utils.c
 
 OBJS = $(SRCS:.c=.o)
 
-MLX_LIB = -L $(MINILIBX_DIR) -lmlx -L /usr/lib -lX11 -lXext
+MLX_LIB = -L$(MINILIBX_DIR) -lmlx -lX11 -lXext -lbsd
 PRINTF_LIB = $(PRINTF_DIR)/libftprintf.a
 
 INCLUDES = -I . -I $(MINILIBX_DIR) -I $(UTILS_DIR) -I $(PRINTF_DIR)
