@@ -3,7 +3,7 @@ NAME = so_long
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
 
-SRCS_DIR = .
+SRCS_DIR = srcs/
 UTILS_DIR = utils/gnl
 PRINTF_DIR = utils/ft_printf
 MINILIBX_DIR = minilibx-linux
@@ -19,7 +19,7 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/utils/utils2.c \
 	$(UTILS_DIR)/get_next_line.c \
 	$(UTILS_DIR)/get_next_line_utils.c \
-	$(SRCS_DIR)/utils/utils.c
+	$(UTILS_DIR)utils.c
 
 OBJS = $(SRCS:.c=.o)
 
