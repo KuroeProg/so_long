@@ -66,7 +66,6 @@ typedef struct check
 	int		check_item;
 }			t_check;
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		main(int argc, char **argv);
 int		close_program(void *param);
 void	ft_parsing(char *file_path, t_game *game);
