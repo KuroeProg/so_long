@@ -31,6 +31,7 @@ void	free_game(t_game *game)
 		free_map(game->map);
 		game->map = NULL;
 	}
+	exit(0);
 }
 
 void	free_fd(t_game *game)
@@ -47,27 +48,20 @@ void	free_fd_bis(int fd, t_game *game)
 	return ;
 }
 
-t_img	xpm_to_img(t_img img, void *mlx_connection, int width, int height)
+t_img	xpm_to_img(t_game *game, int width, int height)
 {
-	img.img_path = mlx_xpm_file_to_image(mlx_connection,
+	game->img.img_path = mlx_xpm_file_to_image(game->mlx_connection,
 			"sprites_solong/grass.xpm", &width, &height);
-	if (!img.img_path)
-		return (free_sprites(&img, mlx_connection), img);
-	img.img_wall = mlx_xpm_file_to_image(mlx_connection,
+	game->img.img_wall = mlx_xpm_file_to_image(game->mlx_connection,
 			"sprites_solong/water.xpm", &width, &height);
-	if (!img.img_wall)
-		return (free_sprites(&img, mlx_connection), img);
-	img.img_player = mlx_xpm_file_to_image(mlx_connection,
+	game->img.img_player = mlx_xpm_file_to_image(game->mlx_connection,
 			"sprites_solong/player.xpm", &width, &height);
-	if (!img.img_player)
-		return (free_sprites(&img, mlx_connection), img);
-	img.img_item = mlx_xpm_file_to_image(mlx_connection,
+	game->img.img_item = mlx_xpm_file_to_image(game->mlx_connection,
 			"sprites_solong/item.xpm", &width, &height);
-	if (!img.img_item)
-		return (free_sprites(&img, mlx_connection), img);
-	img.img_exit = mlx_xpm_file_to_image(mlx_connection,
+	game->img.img_exit = mlx_xpm_file_to_image(game->mlx_connection,
 			"sprites_solong/exit.xpm", &width, &height);
-	if (!img.img_exit)
-		return (free_sprites(&img, mlx_connection), img);
-	return (img);
+	if (!game->img.img_path || !game->img.img_wall || !game->img.img_player
+		|| !game->img.img_item || !game->img.img_exit)
+		close_program(game);
+	return (game->img);
 }

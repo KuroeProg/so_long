@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 15:07:50 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/01/13 15:09:47 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:52:56 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,16 @@ void	ft_movesprite(char *line, t_game *game, int j, t_img *img)
 ** The variables widght and height will be used to store the size of the sprites.
 ** We return the img structure with the sprites loaded.
 ** *******************************************************************/
-t_img	load_sprites(void *mlx_connection, t_img img)
+t_img	load_sprites(t_game *game)
 {
 	int		width;
 	int		height;
 
 	width = 0;
 	height = 0;
-	initialize_img(&img);
-	img = xpm_to_img(img, mlx_connection, width, height);
-	return (img);
+	initialize_img(&game->img);
+	game->img = xpm_to_img(game, width, height);
+	return (game->img);
 }
 /* ********************************************************************
 ** This function will parse the map and display it, by 'parsing' we mean that
@@ -103,7 +103,7 @@ void	ft_parsing(char *file_path, t_game *game)
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return ;
-	game->img = load_sprites(game->mlx_connection, game->img);
+	game->img = load_sprites(game);
 	if (!game->img.img_path || !game->img.img_wall || !game->img.img_player
 		|| !game->img.img_item || !game->img.img_exit)
 		free_fd_bis(fd, game);

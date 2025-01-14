@@ -78,7 +78,7 @@ int		check_exit(t_game *game);
 void	collect_item(t_game *game);
 void	handle_player_action(t_game *game, int x, int y);
 void	initialize_player(t_game *game, int start_x, int start_y);
-t_img	load_sprites(void *mlx_connection, t_img img);
+t_img	load_sprites(t_game *game);
 void	ft_movesprite(char *line, t_game *game, int j, t_img *img);
 void	free_sprites(t_img *img, void *mlx_connection);
 int		ftff_strlen(char *str);
@@ -99,7 +99,7 @@ void	ft_check_free(int k, int l, t_game *game, char **map_copy);
 void	display_information(t_check	*check);
 void	free_fd(t_game *game);
 void	ft_extrct_line(t_game *game, char *line, int fd);
-t_img	xpm_to_img(t_img img, void *mlx_connection, int width, int height);
+t_img	xpm_to_img(t_game *game, int width, int height);
 void	free_fd_bis(int fd, t_game *game);
 void	ft_check_free2(int k, int l, t_game *game, char **map_copy);
 
